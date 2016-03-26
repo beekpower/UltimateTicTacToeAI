@@ -10,10 +10,6 @@
 char **board;
 short currentPlayer = X;
 
-// short isTerminal(short board[3][3]) {
-//   if (board[])
-// }
-
 char **allocateArray(int rows, int columns) {
   char **array;
   array = malloc(rows * sizeof(char *));
@@ -91,15 +87,14 @@ char **makeMove(char **board, short player, short row, short column) {
 
 
 // int evaluateTurn(char **board, short player, short row, short column) {
-//
+//   char **tempBoard = copyBoard(board);
 //   for (int i=0; i<3; i++) {
 //     for (int j=0; j<3; j++) {
-//       if (isValidMove(board[i][j], row, column)) {
-//         evaluateTurn
+//       if (isValidMove(tempBoard[i][j], row, column)) {
+//         evaluateTurn(tempBoard)
 //       }
 //     }
 //   }
-//
 //   return
 // }
 
@@ -146,6 +141,7 @@ int main(void) {
     gameOver = isGameOver(board);
     if (gameOver > -1) {
       printf("\nGame Over: %d\n", gameOver);
+      exit(0);
     }
 
   }
