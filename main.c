@@ -33,11 +33,13 @@ char **allocateArray(int rows, int columns) {
 
 char **copyBoard(char **board) {
   char **newBoard = allocateArray(3, 3);
-  memcpy(newBoard, board, sizeof(newBoard));
+  for (int i = 0; i < 3; i++){
+    memcpy(newBoard[i], board[i], 3 * sizeof(char));
+  }
   return newBoard;
 }
 
-short isValidMove(char board[3][3], short row, short column) {
+short isValidMove(char **board, short row, short column) {
   if (board[row][column] > 0) {
     return 0;
   } else {
@@ -54,12 +56,12 @@ char **makeMove(char **board, short player, short row, short column) {
 }
 
 
-// int evaluateMove(short board[3][3], short player, short row, short column) {
+// int evaluateTurn(char **board, short player, short row, short column) {
 //
 //   for (int i=0; i<3; i++) {
 //     for (int j=0; j<3; j++) {
 //       if (isValidMove(board[i][j], row, column)) {
-//         evaluateMove
+//         evaluateTurn
 //       }
 //     }
 //   }
@@ -95,11 +97,16 @@ int main(void) {
     printf("\nEnter column: ");
     scanf("%d", &inputColumn);
 
-    board = makeMove(board, currentPlayer, inputRow, inputColumn);
-    if (currentPlayer = X) {
-      currentPlayer = Y;
+    if (isValidMove(board, inputRow, inputColumn)) {
+      board = makeMove(board, currentPlayer, inputRow, inputColumn);
+      if (currentPlayer == X) {
+        currentPlayer = Y;
+      } else {
+        currentPlayer = X;
+      }
     } else {
-      currentPlayer = X;
+      printf("\nInvalid Move.\n");
     }
+
   }
 }
