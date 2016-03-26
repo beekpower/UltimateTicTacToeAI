@@ -39,7 +39,41 @@ char **copyBoard(char **board) {
   return newBoard;
 }
 
-short isValidMove(char **board, short row, short column) {
+char isGameOver(char **board) {
+  //test row wins
+  for (char i = 0; i < 3; i++) {
+    if (board[i][0] > 0 && board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+      return board[i][0];
+    }
+  }
+
+  //test column wins
+  for (char i = 0; i < 3; i++) {
+    if (board[0][i] > 0 && board[0][i] == board[1][i] && board[1][i] == board[2][i]) {
+      return board[0][i];
+    }
+  }
+
+  //test diagonal wins
+  if (board[0][0] > 0 && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+    return board[0][0];
+  }
+  if (board[2][0] > 0 && board[2][0] == board[1][1] && board[1][1] == board[0][2]) {
+    return board[2][0];
+  }
+
+  for (char i = 0; i < 3; i++) {
+    for (char j = 0; j < 3; j++) {
+      if (board[i][j] == 0) {
+        return -1;
+      }
+    }
+  }
+
+  return 0;
+}
+
+char isValidMove(char **board, short row, short column) {
   if (board[row][column] > 0) {
     return 0;
   } else {
@@ -88,6 +122,7 @@ void printBoard(char **board) {
 int main(void) {
   int inputRow;
   int inputColumn;
+  char gameOver;
 
   board = allocateArray(3, 3);
   while (1) {
@@ -106,6 +141,11 @@ int main(void) {
       }
     } else {
       printf("\nInvalid Move.\n");
+    }
+
+    gameOver = isGameOver(board);
+    if (gameOver > -1) {
+      printf("\nGame Over: %d\n", gameOver);
     }
 
   }
