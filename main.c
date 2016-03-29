@@ -5,7 +5,7 @@
 
 #define blank 0
 #define X 1
-#define Y 2
+#define O 2
 #define MAXIMIZE 0
 #define MINIMIZE 1
 
@@ -118,7 +118,7 @@ int minimax(char **board, char goal) {
         //copy the board
         char **tempBoard = copyBoard(board);
         char result;
-        char player = MAXIMIZE ? X : Y;
+        char player = MAXIMIZE ? X : O;
 
         tempBoard = makeMove(board, player, row, column);
         result = minimax(tempBoard, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE);
@@ -137,9 +137,11 @@ int minimax(char **board, char goal) {
   return retVal;
 }
 
-void getBestMove(char **board, short player) {
-  char bestRow;
-  char bestColumn;
+Move getBestMove(char **board, short player) {
+  char best = -10;
+  Move move;
+  move.row = 0;
+  move.column = 0;
 
 
   for (int row=0; row<3; row++) {
@@ -150,34 +152,39 @@ void getBestMove(char **board, short player) {
 
         tempBoard = makeMove(board, player, row, column);
 
-        if (minimax(tempBoard, MINIMIZE) == 10) {
-          printf("Make move at %d, %d", row, column);
-          return;
+        char result = minimax(tempBoard, MINIMIZE);
+        if (result > best) {
+          best = result;
+          move.row = row;
+          move.column = column;
         }
       }
     }
   }
-}
 
-// int evaluateTurn(char **board, short player, short row, short column) {
-//   char **tempBoard = copyBoard(board);
-//   for (int i=0; i<3; i++) {
-//     for (int j=0; j<3; j++) {
-//       if (isValidMove(tempBoard[i][j], row, column)) {
-//         evaluateTurn(tempBoard)
-//       }
-//     }
-//   }
-//   return
-// }
+  return move;
+}
 
 void printBoard(char **board) {
    for (char i=0; i<3; i++) {
      for (char j=0; j<3; j++) {
         if (j < 2) {
-	         printf("%d | ", board[i][j]);
+          if (board[i][j] == X) {
+            printf("%c | ", 'X');
+          } else if (board[i][j] == O) {
+            printf("%c | ", 'O');
+          } else {
+            printf("%c | ", ' ');
+          }
+
         } else {
-	         printf("%d", board[i][j]);
+          if (board[i][j] == X) {
+            printf("%c", 'X');
+          } else if (board[i][j] == O) {
+            printf("%c", 'O');
+          } else {
+            printf("%c", ' ');
+          }
         }
      }
      if (i < 2) {
@@ -194,26 +201,27 @@ int main(void) {
 
   board = allocateArray(3, 3);
 
-//  printf("%lu", count(9));
-
-//  exit(0);
   while (1) {
     printBoard(board);
 
     if (currentPlayer == X) {
-      getBestMove(board, X);
+      Move move = getBestMove(board, X);
+      inputRow = move.row;
+      inputColumn = move.column;
+    } else {
+      printf("\nEnter row: ");
+      scanf("%d", &inputRow);
+      printf("\nEnter column: ");
+      scanf("%d", &inputColumn);
     }
 
 
-    printf("\nEnter row: ");
-    scanf("%d", &inputRow);
-    printf("\nEnter column: ");
-    scanf("%d", &inputColumn);
+
 
     if (isValidMove(board, inputRow, inputColumn)) {
       board = makeMove(board, currentPlayer, inputRow, inputColumn);
       if (currentPlayer == X) {
-        currentPlayer = Y;
+        currentPlayer = O;
       } else {
         currentPlayer = X;
       }
@@ -223,6 +231,7 @@ int main(void) {
 
     gameOver = isGameOver(board);
     if (gameOver > -1) {
+      printBoard(board);
       printf("\nGame Over: %d\n", gameOver);
       exit(0);
     }
