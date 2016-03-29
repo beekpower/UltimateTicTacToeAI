@@ -118,7 +118,7 @@ int minimax(char **board, char goal) {
         //copy the board
         char **tempBoard = copyBoard(board);
         char result;
-        char player = MAXIMIZE ? X : O;
+        char player = (goal == MAXIMIZE) ? O : X;
 
         tempBoard = makeMove(board, player, row, column);
         result = minimax(tempBoard, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE);
@@ -204,8 +204,8 @@ int main(void) {
   while (1) {
     printBoard(board);
 
-    if (currentPlayer == X) {
-      Move move = getBestMove(board, X);
+    if (currentPlayer == O) {
+      Move move = getBestMove(board, currentPlayer);
       inputRow = move.row;
       inputColumn = move.column;
     } else {
@@ -214,9 +214,6 @@ int main(void) {
       printf("\nEnter column: ");
       scanf("%d", &inputColumn);
     }
-
-
-
 
     if (isValidMove(board, inputRow, inputColumn)) {
       board = makeMove(board, currentPlayer, inputRow, inputColumn);
