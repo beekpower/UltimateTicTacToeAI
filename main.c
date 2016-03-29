@@ -6,9 +6,16 @@
 #define blank 0
 #define X 1
 #define Y 2
+#define MAXIMIZE 0
+#define MINIMIZE 1
 
 char **board;
 short currentPlayer = X;
+
+typedef struct {
+  char row;
+  char column;
+} Move;
 
 char **allocateArray(int rows, int columns) {
   char **array;
@@ -85,6 +92,72 @@ char **makeMove(char **board, short player, short row, short column) {
   return board;
 }
 
+int minimax(char **board, char goal) {
+  char retVal;
+  char gameOver = isGameOver(board);
+  if (gameOver == 0) {
+    return 0;
+  } else if (gameOver > 0) {
+    if (goal == MAXIMIZE) {
+      return -10;
+    } else {
+      return 10;
+    }
+  }
+
+  if (goal == MAXIMIZE) {
+    retVal = -100;
+  } else {
+    retVal = 100;
+  }
+
+  //loop through all spaces on the board
+  for (int row=0; row<3; row++) {
+    for (int column=0; column<3; column++) {
+      if (isValidMove(board, row, column)) {
+        //copy the board
+        char **tempBoard = copyBoard(board);
+        char result;
+        char player = MAXIMIZE ? X : Y;
+
+        tempBoard = makeMove(board, player, row, column);
+        result = minimax(tempBoard, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE);
+        if (goal == MAXIMIZE) {
+           if (result > retVal) {
+             retVal = result;
+           }
+        } else {
+          if (result < retVal) {
+            retVal = result;
+          }
+        }
+      }
+    }
+  }
+  return retVal;
+}
+
+void getBestMove(char **board, short player) {
+  char bestRow;
+  char bestColumn;
+
+
+  for (int row=0; row<3; row++) {
+    for (int column=0; column<3; column++) {
+      if (isValidMove(board, row, column)) {
+        //copy the board
+        char **tempBoard = copyBoard(board);
+
+        tempBoard = makeMove(board, player, row, column);
+
+        if (minimax(tempBoard, MINIMIZE) == 10) {
+          printf("Make move at %d, %d", row, column);
+          return;
+        }
+      }
+    }
+  }
+}
 
 // int evaluateTurn(char **board, short player, short row, short column) {
 //   char **tempBoard = copyBoard(board);
@@ -120,8 +193,18 @@ int main(void) {
   char gameOver;
 
   board = allocateArray(3, 3);
+
+//  printf("%lu", count(9));
+
+//  exit(0);
   while (1) {
     printBoard(board);
+
+    if (currentPlayer == X) {
+      getBestMove(board, X);
+    }
+
+
     printf("\nEnter row: ");
     scanf("%d", &inputRow);
     printf("\nEnter column: ");
