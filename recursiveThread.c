@@ -32,7 +32,7 @@ int main() {
 
 
 
-  threadpool thpool = thpool_init(8);
+  threadpool thpool = thpool_init(4);
 
   // start timer
   gettimeofday(&t1, NULL);
