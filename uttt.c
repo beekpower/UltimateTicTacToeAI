@@ -37,22 +37,65 @@ void undoMove(char subBoard[], char superBoard[], char move) {
   superBoard[superBoardSpot] = 0;
 }
 
+char subBoardWon(char subBoard[], char superBoardSpot) {
+  char seed = superBoardSpot * 9;
+
+  //Diagonal left
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed + 4] && subBoard[seed] == subBoard[seed + 8]) {
+    return subBoard[seed];
+  }
+
+  //Diagonal right
+  if (subBoard[seed + 2] > 0 && subBoard[seed + 2] == subBoard[seed + 4] && subBoard[seed] == subBoard[seed + 6]) {
+    return subBoard[seed + 2];
+  }
+
+  //Rows
+  for (char i = seed; i < 9; i += 3) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i + 1] && subBoard[i] == subBoard[i + 2]) {
+      return subBoard[i];
+    }
+  }
+
+  //Columns
+  for (char i = seed; i < 3; i += 1) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i + 3] && subBoard[i] == subBoard[i + 6]) {
+      return subBoard[i];
+    }
+  }
+
+  //Test for any empty spots, to detemine of its a tie
+  for (char i = seed; i < seed + 9; i += 1) {
+    if (subBoard[i] == 0) {
+      //Not a tie
+      return -1;
+    }
+  }
+
+  //Its a tie
+  return 0;
+}
+
 //Perform a move
 char doMove(char subBoard[], char superBoard[], char player, char move) {
   //copy the board
   subBoard[move] = player;
 
   //Update the super board spot if needed
-  char numberOfSpotsIntoSubBoard = move % 9;
-  char seed =  move - numberOfSpotsIntoSubBoard;
+  char superBoardSpot = getSuperBoardSpot(move);
+  char state = subBoardWon(subBoard, superBoardSpot);
+  if (state > -1) {
+    superBoard[superBoardSpot] = state;
+  }
 
-  //Test Row 1
-  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed + 3] && subBoard[seed] == subBoard[seed + 3]) {
-    superBoard[seed / 9] = player;
+  char nextSuperBoardSpot = move % 9;
+  if (superBoardWon(nextSuperBoardSpot) > -1) {
+    //Super board is won, so the next player gets to go anywhere
+    return -1;
   }
 
   //Return the super board spot that the next player must move into
-  return numberOfSpotsIntoSubBoard; //or -1 if superboard is won
+  return nextSuperBoardSpot;
 }
 
 char isOpenSpot(char subBoard[], char move) {
@@ -126,6 +169,24 @@ void printBoard(char subBoard[]) {
 
 int main(void) {
   char inputMove, inputAI;
+
+  char subBoard[81];
+
+  subBoard[0] = X;
+  subBoard[1] = X;
+  subBoard[2] = O;
+  subBoard[3] = O;
+  subBoard[4] = O;
+  subBoard[5] = X;
+  subBoard[6] = X;
+  subBoard[7] = O;
+  subBoard[8] = X;
+
+
+printf("%d\n", subBoardWon(subBoard, 0));
+
+      exit(0);
+
 
   while (1) {
     printf("\nWho will the AI play as? (X, O): ");
