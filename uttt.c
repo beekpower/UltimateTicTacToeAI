@@ -211,9 +211,46 @@ char isOpenSpot(char subBoard[], char move) {
 
 //Print the UTTT board
 void printBoard(char subBoard[]) {
-   char j = 0;
-   char row = 0;
-   char column = 0;
+  //rows
+  for (char seed = 0; seed < 81; seed += 27) {
+     for (char pp = seed; pp < seed + 9;  pp+=3) {
+           //columns
+          for (int i = pp; i < seed + 27; i+= 9) {
+            for (int j = i; j < i + 3; j++) {
+
+              if (j < 10) {
+                if (subBoard[j] == X) {
+                  printf("%c  ", 'X');
+                } else if (subBoard[j] == O) {
+                  printf("%c  ", 'O');
+                } else {
+                  printf("%d  ", j);
+                }
+              } else {
+                if (subBoard[j] == X) {
+                  printf("%c  ", 'X');
+                } else if (subBoard[j] == O) {
+                  printf("%c  ", 'O');
+                } else {
+                  printf("%d ", j);
+                }
+              }
+            }
+            printf("| ");
+          }
+          printf("\n");
+     }
+     if (seed != 54) {
+       printf("--------------------------------\n");
+     }
+   }
+
+
+
+
+   return;
+
+
    for (char i=0; i < SUB_BOARD_SIZE; i++) {
      if (i % 9 == 0) {
        printf("\n");
@@ -245,6 +282,7 @@ void printBoard(char subBoard[]) {
          printf("%d ", i);
        }
      }
+
 
 
    }
