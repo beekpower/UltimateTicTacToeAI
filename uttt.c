@@ -11,8 +11,9 @@
 #define MAXIMIZE 0
 #define MINIMIZE 1
 
-char subboard[81];
-char superboard[9];
+char subBoard[81];
+char superBoard[9];
+char lastMove
 short currentPlayer = X;
 
 //Copy a sub or super board
@@ -30,39 +31,48 @@ char getSuperBoardSpot(char move) {
 }
 
 //Remove a move from the board
-void undoMove(char subboard[], char superboard[], char move) {
-  subboard[move] = 0;
+void undoMove(char subBoard[], char superBoard[], char move) {
+  subBoard[move] = 0;
   char superBoardSpot = getSuperBoardSpot(move);
-  superboard[superBoardSpot] = 0;
+  superBoard[superBoardSpot] = 0;
 }
 
 //Perform a move
-char doMove(char subboard[], char superboard[], char player, char move) {
+char doMove(char subBoard[], char superBoard[], char player, char move) {
   //copy the board
-  subboard[move] = player;
+  subBoard[move] = player;
 
   //Update the super board spot if needed
   char numberOfSpotsIntoSubBoard = move % 9;
   char seed =  move - numberOfSpotsIntoSubBoard;
 
   //Test Row 1
-  if (subboard[seed] > 0 && subboard[seed] == subboard[seed + 3] && subboard[seed] == subboard[seed + 3]) {
-    superboard[seed / 9] = player;
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed + 3] && subBoard[seed] == subBoard[seed + 3]) {
+    superBoard[seed / 9] = player;
   }
 
   //Return the super board spot that the next player must move into
   return numberOfSpotsIntoSubBoard;
 }
 
+
+char minimax(char subBoard[], char superBoard[], char goal, char player) {
+
+}
+
+char getBestMove(char subBoard[], char superBoard[], char player, char levels) {
+
+}
+
 //Print the UTTT board
-void printBoard(char subboard[]) {
+void printBoard(char subBoard[]) {
    for (char i=0; i < SUB_BOARD_SIZE; i++) {
      if (i % 9 == 0) {
        printf("\n");
      }
-     if (subboard[i] == X) {
+     if (subBoard[i] == X) {
        printf("%c ", 'X');
-     } else if (subboard[i] == O) {
+     } else if (subBoard[i] == O) {
        printf("%c ", 'O');
      } else {
        printf("%c ", '0');
@@ -75,7 +85,7 @@ int main(void) {
   char gameOver;
 
   while (1) {
-    printBoard(subboard);
+    printBoard(subBoard);
 
     if (currentPlayer == O) {
       printf("\nEnter move: ");
