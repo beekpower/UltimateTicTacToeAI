@@ -46,7 +46,7 @@ char subBoardWon(char subBoard[], char superBoardSpot) {
   }
 
   //Diagonal right
-  if (subBoard[seed + 2] > 0 && subBoard[seed + 2] == subBoard[seed + 4] && subBoard[seed] == subBoard[seed + 6]) {
+  if (subBoard[seed + 2] > 0 && subBoard[seed + 2] == subBoard[seed + 4] && subBoard[seed + 2] == subBoard[seed + 6]) {
     return subBoard[seed + 2];
   }
 
@@ -89,7 +89,7 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
   }
 
   char nextSuperBoardSpot = move % 9;
-  if (superBoardWon(nextSuperBoardSpot) > -1) {
+  if (subBoardWon(subBoard, nextSuperBoardSpot) > -1) {
     //Super board is won, so the next player gets to go anywhere
     return -1;
   }
