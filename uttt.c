@@ -15,6 +15,13 @@ char subboard[81];
 char superboard[9];
 short currentPlayer = X;
 
+//Copy a sub or super board
+char *copyBoard(char board[], char size) {
+  char newBoard[size];
+  memcpy(newBoard, board, size * sizeof(char));
+  return newBoard;
+}
+
 //Get the region of the super board the a move is in
 char getSuperBoardSpot(char move) {
   char numberOfSpotsIntoSubBoard = move % 9;
@@ -30,21 +37,24 @@ void undoMove(char subboard[], char superboard[], char move) {
 }
 
 //Perform a move
-void doMove(char subboard[], char superboard[], char player, char move) {
+char doMove(char subboard[], char superboard[], char player, char move) {
   //copy the board
   subboard[move] = player;
 
-  // if (isSubWon()) {
-  //   superboard[move % 9] = player;
-  // }
+  //Update the super board spot if needed
+  char numberOfSpotsIntoSubBoard = move % 9;
+  char seed =  move - numberOfSpotsIntoSubBoard;
+
+  //Test Row 1
+  if (subboard[seed] > 0 && subboard[seed] == subboard[seed + 3] && subboard[seed] == subboard[seed + 3]) {
+    superboard[seed / 9] = player;
+  }
+
+  //Return the super board spot that the next player must move into
+  return numberOfSpotsIntoSubBoard;
 }
 
-char *copyBoard(char board[], char size) {
-  char newBoard[size];
-  memcpy(newBoard, board, size * sizeof(char));
-  return newBoard;
-}
-
+//Print the UTTT board
 void printBoard(char subboard[]) {
    for (char i=0; i < SUB_BOARD_SIZE; i++) {
      if (i % 9 == 0) {
