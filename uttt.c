@@ -37,7 +37,8 @@ void undoMove(char subBoard[], char superBoard[], char move) {
   superBoard[superBoardSpot] = 0;
 }
 
-char subBoardWon(char subBoard[], char superBoardSpot) {
+//Call with superBoardSpot = 0 if testing superBoard
+char boardWon(char subBoard[], char superBoardSpot) {
   char seed = superBoardSpot * 9;
 
   //Diagonal left
@@ -83,13 +84,13 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
 
   //Update the super board spot if needed
   char superBoardSpot = getSuperBoardSpot(move);
-  char state = subBoardWon(subBoard, superBoardSpot);
+  char state = boardWon(subBoard, superBoardSpot);
   if (state > -1) {
     superBoard[superBoardSpot] = state;
   }
 
   char nextSuperBoardSpot = move % 9;
-  if (subBoardWon(subBoard, nextSuperBoardSpot) > -1) {
+  if (boardWon(subBoard, nextSuperBoardSpot) > -1) {
     //Super board is won, so the next player gets to go anywhere
     return -1;
   }
@@ -169,24 +170,6 @@ void printBoard(char subBoard[]) {
 
 int main(void) {
   char inputMove, inputAI;
-
-  char subBoard[81];
-
-  subBoard[0] = X;
-  subBoard[1] = X;
-  subBoard[2] = O;
-  subBoard[3] = O;
-  subBoard[4] = O;
-  subBoard[5] = X;
-  subBoard[6] = X;
-  subBoard[7] = O;
-  subBoard[8] = X;
-
-
-printf("%d\n", subBoardWon(subBoard, 0));
-
-      exit(0);
-
 
   while (1) {
     printf("\nWho will the AI play as? (X, O): ");
