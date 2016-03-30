@@ -13,7 +13,7 @@
 
 char subBoard[81];
 char superBoard[9];
-char lastMove
+char AI;
 short currentPlayer = X;
 
 //Copy a sub or super board
@@ -55,9 +55,6 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
   return numberOfSpotsIntoSubBoard; //or -1 if superboard is won
 }
 
-
-
-
 char isOpenSpot(char subBoard[], char move) {
   if (subBoard[move] > 0) {
     return 0;
@@ -66,47 +63,50 @@ char isOpenSpot(char subBoard[], char move) {
   }
 }
 
-char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char player, char level) {
-  if (gameMover)
-
-  if (--level == 0) {
-    //evaluate the heurstic of the subboard and return that as the value
-  } else {
-
-  }
-}
-
-char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char player, char levels) {
-  long best = -9999999999;
-  char move;
-  char start, end;
-
-  if (superBoardSpot == -1) {
-    //search all spots on the board
-    start = 0;
-    end = SUB_BOARD_SIZE;
-  } else {
-    start = superBoardSpot * 9;
-    end = start + 9;
-  }
-
-  //search within the superboard
-  char seed =
-  for (char i = start; i < end; i++) {
-    if (isOpenSpot(subBoard, i)) {
-      char newSuperBoardSpot = doMove(subBoard, superBoard, i);
-      long result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, player, levels);
-      undoMove(subBoard, i);
-
-      if (result > best) {
-        best = result;
-        move = i;
-      }
-    }
-  }
-
-  return move;
-}
+// char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char player, char level) {
+//   if (gameMover)
+//
+//   if (--level == 0) {
+//     //evaluate the heurstic of the subboard and return that as the value
+//     getScore(subBoard[], player);
+//   } else {
+//
+//   }
+//
+//
+// }
+//
+// char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char player, char levels) {
+//   long best = -9999999999;
+//   char move;
+//   char start, end;
+//
+//   if (superBoardSpot == -1) {
+//     //search all spots on the board
+//     start = 0;
+//     end = SUB_BOARD_SIZE;
+//   } else {
+//     start = superBoardSpot * 9;
+//     end = start + 9;
+//   }
+//
+//   //search within the superboard
+//   char seed =
+//   for (char i = start; i < end; i++) {
+//     if (isOpenSpot(subBoard, i)) {
+//       char newSuperBoardSpot = doMove(subBoard, superBoard, i);
+//       long result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, player, levels);
+//       undoMove(subBoard, superBoard, i);
+//
+//       if (result > best) {
+//         best = result;
+//         move = i;
+//       }
+//     }
+//   }
+//
+//   return move;
+// }
 
 //Print the UTTT board
 void printBoard(char subBoard[]) {
@@ -125,19 +125,43 @@ void printBoard(char subBoard[]) {
 }
 
 int main(void) {
-  char inputMove;
-  char gameOver;
+  char inputMove, inputAI;
+
+  while (1) {
+    printf("\nWho will the AI play as? (X, O): ");
+    scanf("%c", &inputAI);
+    if (inputAI == 'X' || inputAI == 'x') {
+      AI = X;
+      break;
+    } else if (inputAI == 'O' || inputAI == 'o') {
+      AI = O;
+      break;
+    }
+
+    //If we made it this far, invalid input
+    printf("\nInvalid Selection\n");
+  }
 
   while (1) {
     printBoard(subBoard);
 
-    if (currentPlayer == O) {
-      printf("\nEnter move: ");
-      scanf("%d", &inputMove);
+    if (AI == currentPlayer) {
+      printf("\nAI calculating best move...\n");
+      //inputMove = getBestMove();
     } else {
       printf("\nEnter move: ");
       scanf("%d", &inputMove);
     }
+
+  //  doMove();
+
+    if (currentPlayer == X) {
+      currentPlayer = O;
+    } else {
+      currentPlayer = X;
+    }
+
+
 
     // if (isValidMove(board, move)) {
     //   board = makeMove(board, currentPlayer, move);
