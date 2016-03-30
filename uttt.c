@@ -52,16 +52,60 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
   }
 
   //Return the super board spot that the next player must move into
-  return numberOfSpotsIntoSubBoard;
+  return numberOfSpotsIntoSubBoard; //or -1 if superboard is won
 }
 
 
-char minimax(char subBoard[], char superBoard[], char goal, char player) {
 
+
+char isOpenSpot(char subBoard[], char move) {
+  if (subBoard[move] > 0) {
+    return 0;
+  } else {
+    return 1;
+  }
 }
 
-char getBestMove(char subBoard[], char superBoard[], char player, char levels) {
+char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char player, char level) {
+  if (gameMover)
 
+  if (--level == 0) {
+    //evaluate the heurstic of the subboard and return that as the value
+  } else {
+
+  }
+}
+
+char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char player, char levels) {
+  long best = -9999999999;
+  char move;
+  char start, end;
+
+  if (superBoardSpot == -1) {
+    //search all spots on the board
+    start = 0;
+    end = SUB_BOARD_SIZE;
+  } else {
+    start = superBoardSpot * 9;
+    end = start + 9;
+  }
+
+  //search within the superboard
+  char seed =
+  for (char i = start; i < end; i++) {
+    if (isOpenSpot(subBoard, i)) {
+      char newSuperBoardSpot = doMove(subBoard, superBoard, i);
+      long result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, player, levels);
+      undoMove(subBoard, i);
+
+      if (result > best) {
+        best = result;
+        move = i;
+      }
+    }
+  }
+
+  return move;
 }
 
 //Print the UTTT board
