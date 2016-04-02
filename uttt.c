@@ -397,7 +397,7 @@ char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
         long result;
 
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
-        result = minimax(subBoard, superBoard, newSuperBoardSpot, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE, opPlayer, level - 1, alpha, beta);
+        result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, level - 1, alpha, beta);
         undoMove(subBoard, superBoard, i);
 
         if (result > v) {
@@ -427,7 +427,7 @@ char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
         long result;
 
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
-        result = minimax(subBoard, superBoard, newSuperBoardSpot, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE, opPlayer, level - 1, alpha, beta);
+        result = minimax(subBoard, superBoard, newSuperBoardSpot, MAXIMIZE, opPlayer, level - 1, alpha, beta);
         undoMove(subBoard, superBoard, i);
 
         if (result < v) {
@@ -618,7 +618,7 @@ int main(void) {
     while (1) {
       if (AI == currentPlayer) {
         printf("\nAI calculating best move...\n");
-        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
+        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 6);
         printf("\nAI moved to spot: %d\n", inputMove);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
