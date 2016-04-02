@@ -20,7 +20,8 @@
 char subBoard[81];
 char superBoard[9];
 char AI;
-short currentPlayer = X;
+char currentPlayer = X;
+char allowedSuperSpot = -1;
 
 //Copy a sub or super board
 char *copyBoard(char board[], char size) {
@@ -105,11 +106,124 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
   return nextSuperBoardSpot;
 }
 
-char isOpenSpot(char subBoard[], char move) {
+char isOpenSpot(char subBoard[], char superBoard[], char move) {
+  char superBoardSpot = getSuperBoardSpot(move);
+  if (superBoard[superBoardSpot] > 0) {
+    return 0;
+  }
+
   if (subBoard[move] > 0) {
     return 0;
   } else {
     return 1;
+  }
+}
+
+long subHeuristic(char subBoard[], char board, char player) {
+  char seed = board * 9;
+  long total = 0;
+  //Diagonal left
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed+4]) {
+    if (subBoard[seed] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed+8]) {
+    if (subBoard[seed] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+8]) {
+    if (subBoard[seed+4] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  //Diagonal right
+  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+4]) {
+    if (subBoard[seed+2] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+6]) {
+    if (subBoard[seed+2] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+6]) {
+    if (subBoard[seed+4] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  //Rows
+  for (char i = seed; i < 9; i += 3) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+1]) {
+      if (subBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+2]) {
+      if (subBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (subBoard[i+1] > 0 && subBoard[i+1] == subBoard[i+2]) {
+      if (subBoard[i+1] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+  }
+
+  //Columns
+  for (char i = seed; i < 3; i += 1) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+3]) {
+      if (subBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+6]) {
+      if (subBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (subBoard[i+3] > 0 && subBoard[i+3] == subBoard[i+6]) {
+      if (subBoard[i+3] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
   }
 }
 
@@ -233,220 +347,111 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   }
 
   for (char i = 0; i < 9; i++) {
-    total += subHeuristic(subBoard, i);
-  }
-}
-
-long subHeuristic(char subBoard[], char board) {
-  char seed = board * 9;
-
-  //Diagonal left
-  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed+4]) {
-    if (subBoard[seed] == player) {
-      total += SUB_TWO;
-    } else {
-      total -= SUB_TWO;
-    }
-  }
-
-  if (subBoard[seed]] > 0 && subBoard[seed] == subBoard[seed+8]) {
-    if (subBoard[seed] == player) {
-      total += SUB_TWO;
-    } else {
-      total -= SUB_TWO;
-    }
-  }
-
-  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+8]) {
-    if (subBoard[seed+4] == player) {
-      total += SUB_TWO;
-    } else {
-      total -= SUB_TWO;
-    }
-  }
-
-  //Diagonal right
-  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+4]) {
-    if (subBoard[seed+2] == player) {
-      total += SUB_TWO;
-    } else {
-      total -= SUB_TWO;
-    }
-  }
-
-  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+6]) {
-    if (subBoard[seed+2] == player) {
-      total += SUB_TWO;
-    } else {
-      total -= SUB_TWO;
-    }
-  }
-
-  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+6]) {
-    if (subBoard[seed+4] == player) {
-      total += SUB_TWO;
-    } else {
-      total -= SUB_TWO;
-    }
-  }
-
-  //Rows
-  for (char i = seed; i < 9; i += 3) {
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+1]) {
-      if (subBoard[i] == player) {
-        total += SUB_TWO;
-      } else {
-        total -= SUB_TWO;
-      }
-    }
-
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+2]) {
-      if (subBoard[i] == player) {
-        total += SUB_TWO;
-      } else {
-        total -= SUB_TWO;
-      }
-    }
-
-    if (subBoard[i+1] > 0 && subBoard[i+1] == subBoard[i+2]) {
-      if (subBoard[i+1] == player) {
-        total += SUB_TWO;
-      } else {
-        total -= SUB_TWO;
-      }
-    }
-  }
-
-  //Columns
-  for (char i = seed; i < 3; i += 1) {
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+3]) {
-      if (subBoard[i] == player) {
-        total += SUB_TWO;
-      } else {
-        total -= SUB_TWO;
-      }
-    }
-
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+6]) {
-      if (subBoard[i] == player) {
-        total += SUB_TWO;
-      } else {
-        total -= SUB_TWO;
-      }
-    }
-
-    if (subBoard[i+3] > 0 && subBoard[i+3] == subBoard[i+6]) {
-      if (subBoard[i+3] == player) {
-        total += SUB_TWO;
-      } else {
-        total -= SUB_TWO;
-      }
-    }
+    total += subHeuristic(subBoard, i, player);
   }
 }
 
 
-// char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level) {
-//   char gameOver = boardWon(superBoard, 0);
-//   char start, end;
-//   char player;
-//   long retVal;
-//
-//   if (gameOver == 0) {
-//     return 0;
-//   } else if (gameOver )
-//
-//   if (--level == 0) {
-//     //evaluate the heurstic of the subboard and return that as the value
-//     getScore(subBoard[], player);
-//   } else {
-//
-//   }
-//
-//   //We need to go deeper
-//   if (superBoardSpot == -1) {
-//     //search all spots on the board
-//     start = 0;
-//     end = SUB_BOARD_SIZE;
-//   } else {
-//     start = superBoardSpot * 9;
-//     end = start + 9;
-//   }
-//
-//   //setup the minimizer/maximizer
-//   if (goal == MAXIMIZE) {
-//     retVal = -9999999999;
-//   } else {
-//     retVal = 9999999999;
-//   }
-//
-//   //Choose the player based on whether we are maximizing or minimizing
-//   if (goal == MAXIMIZE) {
-//     if (opPlayer == X) {
-//       player = X;
-//     } else {
-//       player = O;
-//     }
-//   } else {
-//     if (opPlayer == X) {
-//       player = O;
-//     } else {
-//       player = X;
-//     }
-//   }
-//
-//   for (int i=start; i < end; i++) {
-//     if (isOpenSpot(subBoard, i)) {
-//       char newSuperBoardSpot;
-//       long result;
-//
-//       newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
-//       result = minimax(subBoard, superBoard, newSuperBoardSpot, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE, opPlayer, level);
-//       undoMove(subBoard, superBoard, i);
-//       if (goal == MAXIMIZE) {
-//          if (result > retVal) {
-//            retVal = result;
-//          }
-//       } else {
-//         if (result < retVal) {
-//           retVal = result;
-//         }
-//       }
-//     }
-//   }
-//   return retVal;
-// }
-//
-// char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char opPlayer, char levels) {
-//   long best = -9999999999;
-//   char move;
-//   char start, end;
-//
-//   if (superBoardSpot == -1) {
-//     //search all spots on the board
-//     start = 0;
-//     end = SUB_BOARD_SIZE;
-//   } else {
-//     start = superBoardSpot * 9;
-//     end = start + 9;
-//   }
-//
-//   //search within the superboard
-//   for (char i = start; i < end; i++) {
-//     if (isOpenSpot(subBoard, i)) {
-//       char newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
-//       long result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, levels);
-//       undoMove(subBoard, superBoard, i);
-//
-//       if (result > best) {
-//         best = result;
-//         move = i;
-//       }
-//     }
-//   }
-//
-//   return move;
-// }
+
+char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level) {
+  char gameOver = boardWon(superBoard, 0);
+  char start, end;
+  char player;
+  long retVal;
+
+  if (level == 0) {
+    return heuristic(subBoard, superBoard, opPlayer);
+  }
+
+  if (gameOver == 0) {
+    return 0;
+  } else if (gameOver == opPlayer) {
+    return SUPER_THREE;
+  } else if (gameOver > -1) {
+    return -SUPER_THREE;
+  }
+
+  //We need to go deeper
+  if (superBoardSpot == -1) {
+    //search all spots on the board
+    start = 0;
+    end = SUB_BOARD_SIZE;
+  } else {
+    start = superBoardSpot * 9;
+    end = start + 9;
+  }
+
+  //setup the minimizer/maximizer
+  if (goal == MAXIMIZE) {
+    retVal = -9999999999;
+    //Choose the player based on whether we are maximizing or minimizing
+    if (opPlayer == X) {
+      player = X;
+    } else {
+      player = O;
+    }
+  } else {
+    retVal = 9999999999;
+    //Choose the player based on whether we are maximizing or minimizing
+    if (opPlayer == X) {
+      player = O;
+    } else {
+      player = X;
+    }
+  }
+
+  for (int i=start; i < end; i++) {
+    if (isOpenSpot(subBoard, superBoard, i)) {
+      char newSuperBoardSpot;
+      long result;
+
+      newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
+      result = minimax(subBoard, superBoard, newSuperBoardSpot, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE, opPlayer, level - 1);
+      undoMove(subBoard, superBoard, i);
+      if (goal == MAXIMIZE) {
+         if (result > retVal) {
+           retVal = result;
+         }
+      } else {
+        if (result < retVal) {
+          retVal = result;
+        }
+      }
+    }
+  }
+  return retVal;
+}
+
+char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char opPlayer, char levels) {
+  long best = -9999999999;
+  char move;
+  char start, end;
+
+  if (superBoardSpot == -1) {
+    //search all spots on the board
+    start = 0;
+    end = SUB_BOARD_SIZE;
+  } else {
+    start = superBoardSpot * 9;
+    end = start + 9;
+  }
+
+  //search within the superboard
+  for (char i = start; i < end; i++) {
+    if (isOpenSpot(subBoard, superBoard, i)) {
+      char newSuperBoardSpot = doMove(subBoard, superBoard, opPlayer, i);
+      long result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, levels);
+      undoMove(subBoard, superBoard, i);
+
+      if (result > best) {
+        best = result;
+        move = i;
+      }
+    }
+  }
+
+  return move;
+}
 
 //Print the UTTT board
 void printBoard(char subBoard[]) {
@@ -486,7 +491,7 @@ void printBoard(char subBoard[]) {
 }
 
 int main(void) {
-  char inputMove, inputAI;
+  char inputMove, inputAI, gameOver;
 
   while (1) {
     printf("\nWho will the AI play as? (X, O): ");
@@ -508,13 +513,14 @@ int main(void) {
 
     if (AI == currentPlayer) {
       printf("\nAI calculating best move...\n");
-      //inputMove = getBestMove();
+      inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
+      printf("\nAI moved to spot: %d\n", inputMove);
     } else {
       printf("\nEnter move: ");
       scanf("%d", &inputMove);
     }
 
-  //  doMove();
+    allowedSuperSpot = doMove(subBoard, superBoard, currentPlayer, inputMove);
 
     if (currentPlayer == X) {
       currentPlayer = O;
@@ -522,25 +528,18 @@ int main(void) {
       currentPlayer = X;
     }
 
+    gameOver = boardWon(superBoard, 0);
 
+    if (gameOver == X) {
+      printBoard(board);
+      printf("\nGame over, X wins.\n");
+      exit(0);
+    } else if (gameOver == O) {
 
-    // if (isValidMove(board, move)) {
-    //   board = makeMove(board, currentPlayer, move);
-    //   if (currentPlayer == X) {
-    //     currentPlayer = O;
-    //   } else {
-    //     currentPlayer = X;
-    //   }
-    // } else {
-    //   printf("\nInvalid Move.\n");
-    // }
-
-    // gameOver = isGameOver(board);
-    // if (gameOver > -1) {
-    //   printBoard(board);
-    //   printf("\nGame Over: %d\n", gameOver);
-    //   exit(0);
-    // }
-
+    } else if (gameOver == 0) {
+      printBoard(board);
+      printf("\nGame over, tie.\n");
+      exit(0);
+    }
   }
 }
