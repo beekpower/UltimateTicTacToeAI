@@ -59,14 +59,14 @@ char boardWon(char subBoard[], char superBoardSpot) {
   }
 
   //Rows
-  for (char i = seed; i < 9; i += 3) {
+  for (char i = seed; i < seed + 12; i += 3) {
     if (subBoard[i] > 0 && subBoard[i] == subBoard[i + 1] && subBoard[i] == subBoard[i + 2]) {
       return subBoard[i];
     }
   }
 
   //Columns
-  for (char i = seed; i < 3; i += 1) {
+  for (char i = seed; i < seed + 3; i += 1) {
     if (subBoard[i] > 0 && subBoard[i] == subBoard[i + 3] && subBoard[i] == subBoard[i + 6]) {
       return subBoard[i];
     }
@@ -173,7 +173,7 @@ long subHeuristic(char subBoard[], char board, char player) {
   }
 
   //Rows
-  for (char i = seed; i < 9; i += 3) {
+  for (char i = seed; i < seed + 12; i += 3) {
     if (subBoard[i] > 0 && subBoard[i] == subBoard[i+1]) {
       if (subBoard[i] == player) {
         total += SUB_TWO;
@@ -200,7 +200,7 @@ long subHeuristic(char subBoard[], char board, char player) {
   }
 
   //Columns
-  for (char i = seed; i < 3; i += 1) {
+  for (char i = seed; i < seed + 3; i += 1) {
     if (subBoard[i] > 0 && subBoard[i] == subBoard[i+3]) {
       if (subBoard[i] == player) {
         total += SUB_TWO;
@@ -293,7 +293,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   }
 
   //Rows
-  for (char i = 0; i < 9; i += 3) {
+  for (char i = 0; i < 12; i += 3) {
     if (superBoard[i] > 0 && superBoard[i] == superBoard[i+1]) {
       if (superBoard[i] == player) {
         total += SUB_TWO;
@@ -453,6 +453,13 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
   return move;
 }
 
+void printSuperBoard(char superBoard[]) {
+  for (char i = 0; i < SUPER_BOARD_SIZE; i++) {
+    printf("%d ", superBoard[i]);
+  }
+  printf("\n");
+}
+
 //Print the UTTT board
 void printBoard(char subBoard[]) {
   //rows
@@ -510,14 +517,25 @@ int main(void) {
 
   while (1) {
     printBoard(subBoard);
+    printSuperBoard(superBoard);
 
-    if (AI == currentPlayer) {
-      printf("\nAI calculating best move...\n");
-      inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
-      printf("\nAI moved to spot: %d\n", inputMove);
-    } else {
-      printf("\nEnter move: ");
-      scanf("%d", &inputMove);
+    while (1) {
+      if (AI == currentPlayer) {
+        printf("\nAI calculating best move...\n");
+        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
+        printf("\nAI moved to spot: %d\n", inputMove);
+      } else {
+        printf("\nEnter move (region %d): ", allowedSuperSpot);
+        scanf("%d", &inputMove);
+      }
+
+      if (isOpenSpot(subBoard, superBoard, inputMove) && (getSuperBoardSpot(inputMove) == allowedSuperSpot || allowedSuperSpot == -1)) {
+        break;
+      } else {
+        printBoard(subBoard);
+        printf("\nInvalid move.\n");
+      }
+
     }
 
     allowedSuperSpot = doMove(subBoard, superBoard, currentPlayer, inputMove);
@@ -528,16 +546,18 @@ int main(void) {
       currentPlayer = X;
     }
 
+    //Check if the game is over
     gameOver = boardWon(superBoard, 0);
-
     if (gameOver == X) {
-      printBoard(board);
+      printBoard(subBoard);
       printf("\nGame over, X wins.\n");
       exit(0);
     } else if (gameOver == O) {
-
+      printBoard(subBoard);
+      printf("\nGame over, O wins.\n");
+      exit(0);
     } else if (gameOver == 0) {
-      printBoard(board);
+      printBoard(subBoard);
       printf("\nGame over, tie.\n");
       exit(0);
     }
