@@ -11,6 +11,12 @@
 #define MAXIMIZE 0
 #define MINIMIZE 1
 
+
+#define SUPER_THREE 1000
+#define SUPER_TWO 100
+#define SUPER_ONE 10
+#define SUB_TWO 1
+
 char subBoard[81];
 char superBoard[9];
 char AI;
@@ -79,7 +85,7 @@ char boardWon(char subBoard[], char superBoardSpot) {
 
 //Perform a move
 char doMove(char subBoard[], char superBoard[], char player, char move) {
-  //copy the board
+  //make the move
   subBoard[move] = player;
 
   //Update the super board spot if needed
@@ -106,6 +112,239 @@ char isOpenSpot(char subBoard[], char move) {
     return 1;
   }
 }
+
+long heuristic(char subBoard[], char superBoard[], char player) {
+  long total = 0;
+
+  //Check the super board
+  //individual spots
+  for (char i = 0; i < SUPER_BOARD_SIZE; i++) {
+    if (superBoard[i] == player) {
+      //If it is player's spot
+      total += SUPER_ONE;
+    } else if (superBoard[i] > 0) {
+      //If it is opponent's spot
+      total -= SUPER_ONE;
+    }
+  }
+
+  //Diagonal left
+  if (superBoard[0] > 0 && superBoard[0] == superBoard[4]) {
+    if (superBoard[0] == player) {
+      total += SUPER_TWO;
+    } else {
+      total -= SUPER_TWO;
+    }
+  }
+
+  if (superBoard[0] > 0 && superBoard[0] == superBoard[8]) {
+    if (superBoard[0] == player) {
+      total += SUPER_TWO;
+    } else {
+      total -= SUPER_TWO;
+    }
+  }
+
+  if (superBoard[4] > 0 && superBoard[4] == superBoard[8]) {
+    if (superBoard[4] == player) {
+      total += SUPER_TWO;
+    } else {
+      total -= SUPER_TWO;
+    }
+  }
+
+  //Diagonal right
+  if (superBoard[2] > 0 && superBoard[2] == superBoard[4]) {
+    if (superBoard[2] == player) {
+      total += SUPER_TWO;
+    } else {
+      total -= SUPER_TWO;
+    }
+  }
+
+  if (superBoard[2] > 0 && superBoard[2] == superBoard[6]) {
+    if (superBoard[2] == player) {
+      total += SUPER_TWO;
+    } else {
+      total -= SUPER_TWO;
+    }
+  }
+
+  if (superBoard[4] > 0 && superBoard[4] == superBoard[6]) {
+    if (superBoard[4] == player) {
+      total += SUPER_TWO;
+    } else {
+      total -= SUPER_TWO;
+    }
+  }
+
+  //Rows
+  for (char i = 0; i < 9; i += 3) {
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+1]) {
+      if (superBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+2]) {
+      if (superBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (superBoard[i+1] > 0 && superBoard[i+1] == superBoard[i+2]) {
+      if (superBoard[i+1] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+  }
+
+  //Columns
+  for (char i = 0; i < 3; i += 1) {
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+3]) {
+      if (superBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+6]) {
+      if (superBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (superBoard[i+3] > 0 && superBoard[i+3] == superBoard[i+6]) {
+      if (superBoard[i+3] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+  }
+
+  for (char i = 0; i < 9; i++) {
+    total += subHeuristic(subBoard, i);
+  }
+}
+
+long subHeuristic(char subBoard[], char board) {
+  char seed = board * 9;
+
+  //Diagonal left
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed+4]) {
+    if (subBoard[seed] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  if (subBoard[seed]] > 0 && subBoard[seed] == subBoard[seed+8]) {
+    if (subBoard[seed] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+8]) {
+    if (subBoard[seed+4] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  //Diagonal right
+  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+4]) {
+    if (subBoard[seed+2] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+6]) {
+    if (subBoard[seed+2] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+6]) {
+    if (subBoard[seed+4] == player) {
+      total += SUB_TWO;
+    } else {
+      total -= SUB_TWO;
+    }
+  }
+
+  //Rows
+  for (char i = seed; i < 9; i += 3) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+1]) {
+      if (subBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+2]) {
+      if (subBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (subBoard[i+1] > 0 && subBoard[i+1] == subBoard[i+2]) {
+      if (subBoard[i+1] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+  }
+
+  //Columns
+  for (char i = seed; i < 3; i += 1) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+3]) {
+      if (subBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+6]) {
+      if (subBoard[i] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+
+    if (subBoard[i+3] > 0 && subBoard[i+3] == subBoard[i+6]) {
+      if (subBoard[i+3] == player) {
+        total += SUB_TWO;
+      } else {
+        total -= SUB_TWO;
+      }
+    }
+  }
+}
+
 
 // char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level) {
 //   char gameOver = boardWon(superBoard, 0);
@@ -243,48 +482,6 @@ void printBoard(char subBoard[]) {
      if (seed != 54) {
        printf("--------------------------------\n");
      }
-   }
-
-
-
-
-   return;
-
-
-   for (char i=0; i < SUB_BOARD_SIZE; i++) {
-     if (i % 9 == 0) {
-       printf("\n");
-     }
-
-     if (i % 3 == 0 && i != 0 && i % 9 != 0) {
-       printf("%c ", '|');
-     }
-
-     if (i % 27 == 0 && i != 0) {
-       printf("%s", "------------------------------\n");
-     }
-
-
-     if (i < 10) {
-       if (subBoard[i] == X) {
-         printf("%c  ", 'X');
-       } else if (subBoard[i] == O) {
-         printf("%c  ", 'O');
-       } else {
-         printf("%d  ", i);
-       }
-     } else {
-       if (subBoard[i] == X) {
-         printf("%c  ", 'X');
-       } else if (subBoard[i] == O) {
-         printf("%c  ", 'O');
-       } else {
-         printf("%d ", i);
-       }
-     }
-
-
-
    }
 }
 
