@@ -591,7 +591,7 @@ int main(void) {
     while (1) {
       if (AI == currentPlayer) {
         printf("\nAI calculating best move...\n");
-        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 6);
+        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
         printf("\nAI moved to spot: %d\n", inputMove);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
