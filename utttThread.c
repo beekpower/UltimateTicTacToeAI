@@ -476,8 +476,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
 void threadStarter(char thread) {
   char newSuperBoardSpot = doMove(tData[thread].subBoard, tData[thread].superBoard, tData[thread].opPlayer, tData[thread].move);
   long result = minimax(tData[thread].subBoard, tData[thread].superBoard, newSuperBoardSpot, MINIMIZE, tData[thread].opPlayer, tData[thread].levels, -9999999999, 9999999999);
-  undoMove(subBoard, superBoard, tData[thread].move);
-
+  undoMove(tData[thread].subBoard, tData[thread].superBoard, tData[thread].move);
   trData[thread].score = result;
   trData[thread].move = tData[thread].move;
 }
@@ -520,6 +519,7 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
       best = trData[i].score;
       move = trData[i].move;
     }
+      printf("%d\n", best);
   }
 
   return move;
