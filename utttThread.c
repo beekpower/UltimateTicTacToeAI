@@ -22,7 +22,6 @@ char superBoard[9];
 char AI;
 char currentPlayer = X;
 char allowedSuperSpot = -1;
-char *threadReturns;
 
 typedef struct {
     char *subBoard;
@@ -34,7 +33,7 @@ typedef struct {
 
 typedef struct {
   char move;
-  char score;
+  long score;
 } ThreadReturnData;
 
 char numThreads;
@@ -244,6 +243,8 @@ long subHeuristic(char subBoard[], char board, char player) {
       }
     }
   }
+
+  return total;
 }
 
 long heuristic(char subBoard[], char superBoard[], char player) {
@@ -368,13 +369,15 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   for (char i = 0; i < 9; i++) {
     total += subHeuristic(subBoard, i, player);
   }
+
+  return total;
 }
 
 
 
 
 
-char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
+long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
   char gameOver = boardWon(superBoard, 0);
   char start, end;
   char player;
@@ -591,7 +594,7 @@ int main(void) {
     while (1) {
       if (AI == currentPlayer) {
         printf("\nAI calculating best move...\n");
-        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
+        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 6);
         printf("\nAI moved to spot: %d\n", inputMove);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
