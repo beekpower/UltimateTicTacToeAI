@@ -225,6 +225,8 @@ long subHeuristic(char subBoard[], char board, char player) {
       }
     }
   }
+
+  return total;
 }
 
 long heuristic(char subBoard[], char superBoard[], char player) {
@@ -349,18 +351,19 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   for (char i = 0; i < 9; i++) {
     total += subHeuristic(subBoard, i, player);
   }
+
+  return total;
 }
 
-
-
-char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
+long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
   char gameOver = boardWon(superBoard, 0);
   char start, end;
   char player;
   long v;
 
   if (level == 0) {
-    return heuristic(subBoard, superBoard, opPlayer);
+    long res =  heuristic(subBoard, superBoard, opPlayer);
+    return res;
   }
 
   if (gameOver == 0) {
@@ -618,7 +621,7 @@ int main(void) {
     while (1) {
       if (AI == currentPlayer) {
         printf("\nAI calculating best move...\n");
-        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
+        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
         printf("\nAI moved to spot: %d\n", inputMove);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
