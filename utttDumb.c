@@ -355,15 +355,14 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   return total;
 }
 
-long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
+long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level) {
   char gameOver = boardWon(superBoard, 0);
   char start, end;
   char player;
-  long v;
+  long retVal;
 
   if (level == 0) {
-    long res =  heuristic(subBoard, superBoard, opPlayer);
-    return res;
+    return heuristic(subBoard, superBoard, opPlayer);
   }
 
   if (gameOver == 0) {
@@ -386,140 +385,44 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
 
   //setup the minimizer/maximizer
   if (goal == MAXIMIZE) {
-    v = -9999999999;
+    retVal = -9999999999;
     //Choose the player based on whether we are maximizing or minimizing
     if (opPlayer == X) {
       player = X;
     } else {
       player = O;
-    }
-
-    for (int i=start; i < end; i++) {
-      if (isOpenSpot(subBoard, superBoard, i)) {
-        char newSuperBoardSpot;
-        long result;
-
-        newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
-        result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, level - 1, alpha, beta);
-        undoMove(subBoard, superBoard, i);
-
-        if (result > v) {
-          v = result;
-        }
-
-        if (v > alpha) {
-          alpha = v;
-        }
-
-        if (beta <= alpha) {
-          break;
-        }
-      }
     }
   } else {
-    v = 9999999999;
+    retVal = 9999999999;
     //Choose the player based on whether we are maximizing or minimizing
     if (opPlayer == X) {
       player = O;
     } else {
       player = X;
     }
-    for (int i=start; i < end; i++) {
-      if (isOpenSpot(subBoard, superBoard, i)) {
-        char newSuperBoardSpot;
-        long result;
+  }
 
-        newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
-        result = minimax(subBoard, superBoard, newSuperBoardSpot, MAXIMIZE, opPlayer, level - 1, alpha, beta);
-        undoMove(subBoard, superBoard, i);
+  for (int i=start; i < end; i++) {
+    if (isOpenSpot(subBoard, superBoard, i)) {
+      char newSuperBoardSpot;
+      long result;
 
-        if (result < v) {
-          v = result;
-        }
-
-        if (v < beta) {
-          alpha = v;
-        }
-
-        if (beta <= alpha) {
-          break;
+      newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
+      result = minimax(subBoard, superBoard, newSuperBoardSpot, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE, opPlayer, level - 1);
+      undoMove(subBoard, superBoard, i);
+      if (goal == MAXIMIZE) {
+         if (result > retVal) {
+           retVal = result;
+         }
+      } else {
+        if (result < retVal) {
+          retVal = result;
         }
       }
     }
   }
-
-
-  return v;
+  return retVal;
 }
-
-// char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level) {
-//   char gameOver = boardWon(superBoard, 0);
-//   char start, end;
-//   char player;
-//   long retVal;
-//
-//   if (level == 0) {
-//     return heuristic(subBoard, superBoard, opPlayer);
-//   }
-//
-//   if (gameOver == 0) {
-//     return 0;
-//   } else if (gameOver == opPlayer) {
-//     return SUPER_THREE;
-//   } else if (gameOver > -1) {
-//     return -SUPER_THREE;
-//   }
-//
-//   //We need to go deeper
-//   if (superBoardSpot == -1) {
-//     //search all spots on the board
-//     start = 0;
-//     end = SUB_BOARD_SIZE;
-//   } else {
-//     start = superBoardSpot * 9;
-//     end = start + 9;
-//   }
-//
-//   //setup the minimizer/maximizer
-//   if (goal == MAXIMIZE) {
-//     retVal = -9999999999;
-//     //Choose the player based on whether we are maximizing or minimizing
-//     if (opPlayer == X) {
-//       player = X;
-//     } else {
-//       player = O;
-//     }
-//   } else {
-//     retVal = 9999999999;
-//     //Choose the player based on whether we are maximizing or minimizing
-//     if (opPlayer == X) {
-//       player = O;
-//     } else {
-//       player = X;
-//     }
-//   }
-//
-//   for (int i=start; i < end; i++) {
-//     if (isOpenSpot(subBoard, superBoard, i)) {
-//       char newSuperBoardSpot;
-//       long result;
-//
-//       newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
-//       result = minimax(subBoard, superBoard, newSuperBoardSpot, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE, opPlayer, level - 1);
-//       undoMove(subBoard, superBoard, i);
-//       if (goal == MAXIMIZE) {
-//          if (result > retVal) {
-//            retVal = result;
-//          }
-//       } else {
-//         if (result < retVal) {
-//           retVal = result;
-//         }
-//       }
-//     }
-//   }
-//   return retVal;
-// }
 
 char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char opPlayer, char levels) {
   long best = -9999999999;
@@ -539,7 +442,7 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
   for (char i = start; i < end; i++) {
     if (isOpenSpot(subBoard, superBoard, i)) {
       char newSuperBoardSpot = doMove(subBoard, superBoard, opPlayer, i);
-      long result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, levels, -9999999999, 9999999999);
+      long result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, levels);
       undoMove(subBoard, superBoard, i);
 
       if (result > best) {
@@ -621,7 +524,7 @@ int main(void) {
     while (1) {
       if (AI == currentPlayer) {
         printf("\nAI calculating best move...\n");
-        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
+        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 2);
         printf("\nAI moved to spot: %d\n", inputMove);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
