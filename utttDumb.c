@@ -355,6 +355,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   return total;
 }
 
+//plain old minimax
 long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level) {
   char gameOver = boardWon(superBoard, 0);
   char start, end;

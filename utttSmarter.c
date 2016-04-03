@@ -355,6 +355,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   return total;
 }
 
+//minimax with alpha beta pruning
 long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
   char gameOver = boardWon(superBoard, 0);
   char start, end;
@@ -452,6 +453,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
   return v;
 }
 
+//get the best move that a player should make
 char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char opPlayer, char levels) {
   long best = -9999999999;
   char move;

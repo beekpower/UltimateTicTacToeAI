@@ -137,6 +137,7 @@ char isOpenSpot(char subBoard[], char superBoard[], char move) {
   }
 }
 
+//Evaluate a heuristic for a subboard
 long subHeuristic(char subBoard[], char board, char player) {
   char seed = board * 9;
   long total = 0;
@@ -247,6 +248,7 @@ long subHeuristic(char subBoard[], char board, char player) {
   return total;
 }
 
+//Evaluate the super board heuristic;
 long heuristic(char subBoard[], char superBoard[], char player) {
   long total = 0;
 
@@ -366,6 +368,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
     }
   }
 
+  //for each subboard evaluate the heuristic
   for (char i = 0; i < 9; i++) {
     total += subHeuristic(subBoard, i, player);
   }
@@ -373,10 +376,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   return total;
 }
 
-
-
-
-
+//Minimax with alpha beta pruning
 long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
   char gameOver = boardWon(superBoard, 0);
   char start, end;
