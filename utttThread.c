@@ -519,7 +519,6 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
       best = trData[i].score;
       move = trData[i].move;
     }
-      printf("%d\n", best);
   }
 
   return move;
