@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "thpool.h"
 
 #define SUB_BOARD_SIZE 81
 #define SUPER_BOARD_SIZE 9
@@ -11,6 +10,7 @@
 #define O 2
 #define MAXIMIZE 0
 #define MINIMIZE 1
+
 
 #define SUPER_THREE 1000
 #define SUPER_TWO 100
@@ -23,27 +23,9 @@ char AI;
 char currentPlayer = X;
 char allowedSuperSpot = -1;
 
-typedef struct {
-    char *subBoard;
-    char *superBoard;
-    char opPlayer;
-    char levels;
-    char move;
-} ThreadData;
-
-typedef struct {
-  char move;
-  long score;
-} ThreadReturnData;
-
-char numThreads;
-
-ThreadData tData[81];
-ThreadReturnData trData[81];
-
 //Copy a sub or super board
 char *copyBoard(char board[], char size) {
-  char *newBoard = malloc(sizeof(char) * size);
+  char newBoard[size];
   memcpy(newBoard, board, size * sizeof(char));
   return newBoard;
 }
@@ -373,10 +355,6 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   return total;
 }
 
-
-
-
-
 long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
   char gameOver = boardWon(superBoard, 0);
   char start, end;
@@ -384,7 +362,8 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
   long v;
 
   if (level == 0) {
-    return heuristic(subBoard, superBoard, opPlayer);
+    long res =  heuristic(subBoard, superBoard, opPlayer);
+    return res;
   }
 
   if (gameOver == 0) {
@@ -473,19 +452,79 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
   return v;
 }
 
-void threadStarter(char thread) {
-  char newSuperBoardSpot = doMove(tData[thread].subBoard, tData[thread].superBoard, tData[thread].opPlayer, tData[thread].move);
-  long result = minimax(tData[thread].subBoard, tData[thread].superBoard, newSuperBoardSpot, MINIMIZE, tData[thread].opPlayer, tData[thread].levels, -9999999999, 9999999999);
-  undoMove(tData[thread].subBoard, tData[thread].superBoard, tData[thread].move);
-  trData[thread].score = result;
-  trData[thread].move = tData[thread].move;
-}
+// char minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level) {
+//   char gameOver = boardWon(superBoard, 0);
+//   char start, end;
+//   char player;
+//   long retVal;
+//
+//   if (level == 0) {
+//     return heuristic(subBoard, superBoard, opPlayer);
+//   }
+//
+//   if (gameOver == 0) {
+//     return 0;
+//   } else if (gameOver == opPlayer) {
+//     return SUPER_THREE;
+//   } else if (gameOver > -1) {
+//     return -SUPER_THREE;
+//   }
+//
+//   //We need to go deeper
+//   if (superBoardSpot == -1) {
+//     //search all spots on the board
+//     start = 0;
+//     end = SUB_BOARD_SIZE;
+//   } else {
+//     start = superBoardSpot * 9;
+//     end = start + 9;
+//   }
+//
+//   //setup the minimizer/maximizer
+//   if (goal == MAXIMIZE) {
+//     retVal = -9999999999;
+//     //Choose the player based on whether we are maximizing or minimizing
+//     if (opPlayer == X) {
+//       player = X;
+//     } else {
+//       player = O;
+//     }
+//   } else {
+//     retVal = 9999999999;
+//     //Choose the player based on whether we are maximizing or minimizing
+//     if (opPlayer == X) {
+//       player = O;
+//     } else {
+//       player = X;
+//     }
+//   }
+//
+//   for (int i=start; i < end; i++) {
+//     if (isOpenSpot(subBoard, superBoard, i)) {
+//       char newSuperBoardSpot;
+//       long result;
+//
+//       newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
+//       result = minimax(subBoard, superBoard, newSuperBoardSpot, goal == MAXIMIZE ? MINIMIZE : MAXIMIZE, opPlayer, level - 1);
+//       undoMove(subBoard, superBoard, i);
+//       if (goal == MAXIMIZE) {
+//          if (result > retVal) {
+//            retVal = result;
+//          }
+//       } else {
+//         if (result < retVal) {
+//           retVal = result;
+//         }
+//       }
+//     }
+//   }
+//   return retVal;
+// }
 
 char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char opPlayer, char levels) {
   long best = -9999999999;
   char move;
   char start, end;
-  char j = 0;
 
   if (superBoardSpot == -1) {
     //search all spots on the board
@@ -496,28 +535,17 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
     end = start + 9;
   }
 
-  threadpool thpool = thpool_init(20);
   //search within the superboard
   for (char i = start; i < end; i++) {
     if (isOpenSpot(subBoard, superBoard, i)) {
-      ThreadData data;
-      data.subBoard = copyBoard(subBoard, SUB_BOARD_SIZE);
-      data.superBoard = copyBoard(superBoard, SUPER_BOARD_SIZE);
-      data.opPlayer = opPlayer;
-      data.levels = levels;
-      data.move = i;
-      tData[j] = data;
-      thpool_add_work(thpool, (void*)threadStarter,  j++);
-    }
-  }
-  numThreads = j;
+      char newSuperBoardSpot = doMove(subBoard, superBoard, opPlayer, i);
+      long result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, levels, -9999999999, 9999999999);
+      undoMove(subBoard, superBoard, i);
 
-  thpool_wait(thpool);
-
-  for (char i = 0; i < numThreads; i++) {
-    if (trData[i].score > best) {
-      best = trData[i].score;
-      move = trData[i].move;
+      if (result > best) {
+        best = result;
+        move = i;
+      }
     }
   }
 
@@ -593,7 +621,7 @@ int main(void) {
     while (1) {
       if (AI == currentPlayer) {
         printf("\nAI calculating best move...\n");
-        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 6);
+        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
         printf("\nAI moved to spot: %d\n", inputMove);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
