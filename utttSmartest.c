@@ -603,7 +603,7 @@ int main(void) {
         if (moves == 0) {
           inputMove = 0;
         } else {
-          inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 8);
+          inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
         }
         // stop timer
         gettimeofday(&t2, NULL);
