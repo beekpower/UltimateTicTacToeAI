@@ -22,6 +22,7 @@ char superBoard[9];
 char AI;
 char currentPlayer = X;
 char allowedSuperSpot = -1;
+int moves = 0;
 
 typedef struct {
     char *subBoard;
@@ -593,7 +594,12 @@ int main(void) {
     while (1) {
       if (AI == currentPlayer) {
         printf("\nAI calculating best move...\n");
-        inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 8);
+        //AI always chooses the first spot as its move, so just set it.
+        if (moves == 0) {
+          inputMove = 0;
+        } else {
+          inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 8);
+        }
         printf("\nAI moved to spot: %d\n", inputMove);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
@@ -610,6 +616,7 @@ int main(void) {
     }
 
     allowedSuperSpot = doMove(subBoard, superBoard, currentPlayer, inputMove);
+    moves++;
 
     if (currentPlayer == X) {
       currentPlayer = O;
