@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <sys/time.h>
 #include "thpool.h"
 
 #define SUB_BOARD_SIZE 81
@@ -571,6 +572,8 @@ void printBoard(char subBoard[]) {
 
 int main(void) {
   char inputMove, inputAI, gameOver;
+  struct timeval t1, t2;
+  double elapsedTime;
 
   while (1) {
     printf("\nWho will the AI play as? (X, O): ");
@@ -593,6 +596,8 @@ int main(void) {
 
     while (1) {
       if (AI == currentPlayer) {
+        //Start Timer
+        gettimeofday(&t1, NULL);
         printf("\nAI calculating best move...\n");
         //AI always chooses the first spot as its move, so just set it.
         if (moves == 0) {
@@ -600,7 +605,11 @@ int main(void) {
         } else {
           inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 8);
         }
-        printf("\nAI moved to spot: %d\n", inputMove);
+        // stop timer
+        gettimeofday(&t2, NULL);
+        elapsedTime = (t2.tv_sec - t1.tv_sec);
+        printf("\nAI moved to spot: %d, in %f seconds\n", inputMove);
+        printf("Move took %f seconds\n", elapsedTime);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
         scanf("%d", &inputMove);
