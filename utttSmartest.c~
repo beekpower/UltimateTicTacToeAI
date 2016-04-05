@@ -118,7 +118,7 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
   }
 
   char nextSuperBoardSpot = move % 9;
-  if (superBoard[nextSuperBoardSpot] > 0) {
+  if (boardWon(subBoard, nextSuperBoardSpot) > -1) {
     //Super board is won, so the next player gets to go anywhere
     return -1;
   }
@@ -635,7 +635,7 @@ int main(void) {
         if (moves == 0) {
           inputMove = 36;
         } else {
-          inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
+          inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
         }
         // stop timer
         gettimeofday(&t2, NULL);
