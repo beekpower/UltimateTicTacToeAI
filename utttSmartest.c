@@ -635,8 +635,12 @@ int main(void) {
         if (moves == 0) {
           inputMove = 36;
         } else {
+          printf("Calculating to level 5...\n", allowedSuperSpot);
           inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
+          printf("%f seconds elapsed for level 5\n", t2.tv_sec - t1.tv_sec);
+          printf("Calculating to level 7...\n", allowedSuperSpot);
           inputMove2 = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
+          printf("%f seconds elapsed for level 7\n", t2.tv_sec - t1.tv_sec);
           gettimeofday(&t2, NULL);
           if ((t2.tv_sec - t1.tv_sec) < 150) {
             inputMove = inputMove2;
