@@ -630,7 +630,7 @@ int main(void) {
       if (AI == currentPlayer) {
         //Start Timer
         gettimeofday(&t1, NULL);
-        printf("\nAI calculating best move...\n");
+        printf("\nAI calculating best move in (region %d)...\n", allowedSuperSpot);
         //AI always chooses the first spot as its move, so just set it.
         if (moves == 0) {
           inputMove = 36;
@@ -640,7 +640,7 @@ int main(void) {
         // stop timer
         gettimeofday(&t2, NULL);
         elapsedTime = (t2.tv_sec - t1.tv_sec);
-        printf("\nAI moved to spot: %d, in %f seconds\n", inputMove);
+        printf("\nAI moved to spot: %d (region %d)\n", inputMove, getSuperBoardSpot(inputMove));
         printf("Move took %f seconds\n", elapsedTime);
       } else {
         printf("\nEnter move (region %d): ", allowedSuperSpot);
