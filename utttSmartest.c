@@ -118,7 +118,7 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
   }
 
   char nextSuperBoardSpot = move % 9;
-  if (superBoard[nextSuperBoardSpot > 0) {
+  if (superBoard[nextSuperBoardSpot] > 0) {
     //Super board is won, so the next player gets to go anywhere
     return -1;
   }
