@@ -603,7 +603,7 @@ void printBoard(char subBoard[]) {
 }
 
 int main(void) {
-  char inputMove, inputAI, gameOver;
+  char inputMove, inputMove2, inputAI, gameOver;
   struct timeval t2;
   double elapsedTime;
 
@@ -635,7 +635,12 @@ int main(void) {
         if (moves == 0) {
           inputMove = 36;
         } else {
-          inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
+          inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
+          inputMove2 = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
+          gettimeofday(&t2, NULL);
+          if ((t2.tv_sec - t1.tv_sec) < 150) {
+            inputMove = inputMove2;
+          }
         }
         // stop timer
         gettimeofday(&t2, NULL);
