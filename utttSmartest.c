@@ -80,26 +80,82 @@ char boardWon(char subBoard[], char superBoardSpot) {
   }
 
   //Rows
-  for (char i = seed; i < seed + 9; i += 3) {
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i + 1] && subBoard[i] == subBoard[i + 2]) {
-      return subBoard[i];
-    }
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed + 1] && subBoard[seed] == subBoard[seed + 2]) {
+    return subBoard[seed];
   }
+  if (subBoard[seed + 3] > 0 && subBoard[seed + 3] == subBoard[seed + 4] && subBoard[seed + 3] == subBoard[seed + 5]) {
+    return subBoard[seed + 3];
+  }
+  if (subBoard[seed + 6] > 0 && subBoard[seed + 6] == subBoard[seed + 7] && subBoard[seed + 6] == subBoard[i + 8]) {
+    return subBoard[seed + 6];
+  }
+
+  // for (char i = seed; i < seed + 9; i += 3) {
+  //   if (subBoard[i] > 0 && subBoard[i] == subBoard[i + 1] && subBoard[i] == subBoard[i + 2]) {
+  //     return subBoard[i];
+  //   }
+  // }
 
   //Columns
-  for (char i = seed; i < seed + 3; i += 1) {
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i + 3] && subBoard[i] == subBoard[i + 6]) {
-      return subBoard[i];
-    }
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed + 3] && subBoard[seed] == subBoard[seed + 6]) {
+    return subBoard[seed];
+  }
+  if (subBoard[seed + 1] > 0 && subBoard[seed + 1] == subBoard[seed + 4] && subBoard[seed + 1] == subBoard[seed + 7]) {
+    return subBoard[seed + 1];
+  }
+  if (subBoard[seed + 2] > 0 && subBoard[seed + 2] == subBoard[seed + 5] && subBoard[seed + 2] == subBoard[i + 8]) {
+    return subBoard[seed + 2];
   }
 
+  // for (char i = seed; i < seed + 3; i += 1) {
+  //   if (subBoard[i] > 0 && subBoard[i] == subBoard[i + 3] && subBoard[i] == subBoard[i + 6]) {
+  //     return subBoard[i];
+  //   }
+  // }
+
   //Test for any empty spots, to detemine of its a tie
-  for (char i = seed; i < seed + 9; i += 1) {
-    if (subBoard[i] == 0) {
-      //Not a tie
-      return -1;
-    }
+  if (subBoard[seed] == 0) {
+    //Not a tie
+    return -1;
   }
+  if (subBoard[seed + 1] == 0) {
+    //Not a tie
+    return -1;
+  }
+  if (subBoard[seed + 2] == 0) {
+    //Not a tie
+    return -1;
+  }
+  if (subBoard[seed + 3] == 0) {
+    //Not a tie
+    return -1;
+  }
+  if (subBoard[seed + 4] == 0) {
+    //Not a tie
+    return -1;
+  }
+  if (subBoard[seed + 5] == 0) {
+    //Not a tie
+    return -1;
+  }
+  if (subBoard[seed + 6] == 0) {
+    //Not a tie
+    return -1;
+  }
+  if (subBoard[seed + 7] == 0) {
+    //Not a tie
+    return -1;
+  }
+  if (subBoard[seed + 8] == 0) {
+    //Not a tie
+    return -1;
+  }
+  // for (char i = seed; i < seed + 9; i += 1) {
+  //   if (subBoard[i] == 0) {
+  //     //Not a tie
+  //     return -1;
+  //   }
+  // }
 
   //Its a tie
   return 0;
