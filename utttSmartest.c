@@ -5,6 +5,7 @@
 #include <sys/time.h>
 #include "thpool.h"
 
+#define THREADS 81
 #define SUB_BOARD_SIZE 81
 #define SUPER_BOARD_SIZE 9
 #define blank 0
@@ -530,7 +531,7 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
     end = start + 9;
   }
 
-  threadpool thpool = thpool_init(20);
+  threadpool thpool = thpool_init(THREADS);
   //search within the superboard
   for (char i = start; i < end; i++) {
     if (isOpenSpot(subBoard, superBoard, i)) {
