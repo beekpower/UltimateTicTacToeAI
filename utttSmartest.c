@@ -602,9 +602,11 @@ void printBoard(char subBoard[]) {
    }
 }
 
+
+
 int main(void) {
   char inputMove, inputMove2, inputAI, gameOver;
-  struct timeval t2;
+  struct timeval t2, tLast;
   double elapsedTime;
 
   while (1) {
@@ -630,20 +632,23 @@ int main(void) {
       if (AI == currentPlayer) {
         //Start Timer
         gettimeofday(&t1, NULL);
+        gettimeofday(&tLast, NULL);
         printf("\nAI calculating best move in (region %d)...\n", allowedSuperSpot);
         //AI always chooses the first spot as its move, so just set it.
         if (moves == 0) {
           inputMove = 36;
         } else {
-          printf("Calculating to level 5...\n", allowedSuperSpot);
-          inputMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 5);
-          printf("%f seconds elapsed for level 5\n", t2.tv_sec - t1.tv_sec);
-          printf("Calculating to level 7...\n", allowedSuperSpot);
-          inputMove2 = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, 7);
-          printf("%f seconds elapsed for level 7\n", t2.tv_sec - t1.tv_sec);
-          gettimeofday(&t2, NULL);
-          if ((t2.tv_sec - t1.tv_sec) < 150) {
-            inputMove = inputMove2;
+          for (char i = 5; i < 15; i++) {
+            char levelMove;
+            printf("Calculating to level %d...\n", i);
+            levelMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, i);
+            gettimeofday(&t2, NULL);
+            elapsedTime = t2.tv_sec - tLast.tv_sec;
+            printf("%f seconds elapsed for level %d\n", elapsedTime, i);
+            if (t2.tv_sec - t1.tv_sec < 150) {
+              inputMove = levelMove;
+            }
+            tLast = t2;
           }
         }
         // stop timer
