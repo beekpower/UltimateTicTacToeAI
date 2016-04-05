@@ -86,7 +86,7 @@ char boardWon(char subBoard[], char superBoardSpot) {
   if (subBoard[seed + 3] > 0 && subBoard[seed + 3] == subBoard[seed + 4] && subBoard[seed + 3] == subBoard[seed + 5]) {
     return subBoard[seed + 3];
   }
-  if (subBoard[seed + 6] > 0 && subBoard[seed + 6] == subBoard[seed + 7] && subBoard[seed + 6] == subBoard[i + 8]) {
+  if (subBoard[seed + 6] > 0 && subBoard[seed + 6] == subBoard[seed + 7] && subBoard[seed + 6] == subBoard[seed + 8]) {
     return subBoard[seed + 6];
   }
 
