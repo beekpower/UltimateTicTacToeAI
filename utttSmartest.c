@@ -5,6 +5,7 @@
 #include <sys/time.h>
 #include "thpool.h"
 
+#define MAX_TURN_TIME 154
 #define THREADS 81
 #define SUB_BOARD_SIZE 81
 #define SUPER_BOARD_SIZE 9
@@ -400,7 +401,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
   //Time ran out
   gettimeofday(&testTime, NULL);
   elapsedTime = (testTime.tv_sec - t1.tv_sec);
-  if (elapsedTime >= 150) {
+  if (elapsedTime >= MAX_TURN_TIME) {
     return heuristic(subBoard, superBoard, opPlayer);
   }
 
@@ -444,7 +445,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
         //Time ran out
         gettimeofday(&testTime, NULL);
         elapsedTime = (testTime.tv_sec - t1.tv_sec);
-        if (elapsedTime >= 150) {
+        if (elapsedTime >= MAX_TURN_TIME) {
           return v;
         }
 
@@ -479,11 +480,11 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
         long result;
 
         //Time ran out
-        gettimeofday(&testTime, NULL);
-        elapsedTime = (testTime.tv_sec - t1.tv_sec);
-        if (elapsedTime >= 150) {
-          return v;
-        }
+        // gettimeofday(&testTime, NULL);
+        // elapsedTime = (testTime.tv_sec - t1.tv_sec);
+        // if (elapsedTime >= MAX_TURN_TIME) {
+        //   return v;
+        // }
 
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
         result = minimax(subBoard, superBoard, newSuperBoardSpot, MAXIMIZE, opPlayer, level - 1, alpha, beta);
@@ -647,7 +648,7 @@ int main(void) {
             elapsedTime = t2.tv_sec - tLast.tv_sec;
             printf("%f seconds elapsed for level %d\n", elapsedTime, i);
             elapsedTime = t2.tv_sec - t1.tv_sec;
-            if (elapsedTime < 150.0) {
+            if (elapsedTime < MAX_TURN_TIME) {
               inputMove = levelMove;
             } else {
               printf("Failed to complete level %d, using level %d move", i, i-1);
