@@ -38,10 +38,31 @@ typedef struct {
   long score;
 } ThreadReturnData;
 
+typedef struct {
+  long d1;
+  long d2;
+} bestMove;
+
 char numThreads;
 
 ThreadData tData[81];
 ThreadReturnData trData[81];
+
+void allocateMovesD1(char **moves, long d1) {
+  moves = malloc(d1 * sizeof(char *));
+  if(moves == NULL) {
+    fprintf(stderr, "out of memory\n");
+    exit(0);
+  }
+}
+
+void allocateMovesD2(char *moves, long d2) {
+  moves = malloc(d2 * sizeof(char));
+  if(moves[d2] == NULL) {
+    fprintf(stderr, "out of memory\n");
+    exit(0);
+  }
+}
 
 //Copy a sub or super board
 char *copyBoard(char board[], char size) {
@@ -385,6 +406,50 @@ long heuristic(char subBoard[], char superBoard[], char player) {
 
   return total;
 }
+
+long processLevel(char subBoard[], char superBoard[], char **moves, long d2Total, char goal, char opPlayer, char level) {
+  BestMove bestMove;
+  long bestHeuristic;
+  char **newMoves;
+  char tempMoves[81];
+  char numTempMoves = 0;
+  allocateMovesD1(newMoves, d2Total);
+
+  if (goal == MAXIMIZE) {
+    bestHeuristic == -9999999999999;
+    for (long i = 0; i < d1size; i++) {
+      for (long j = 0; j < d2size; j++) {
+        player = X;
+        char nextRegion = doMove(subBoard, superBoard, player, moves[i][j]);
+
+        newMoves[j * i]
+
+
+
+
+        long heuristic = heuristic(subBoard, superBoard, player);
+        undoMove(subBoard, superBoard, move);
+        if (heuristic > bestHeuristic) {
+          bestHeusistic = heuristic;
+          bestMove.d1 = i;
+          bestMove.d2 = j;
+        }
+      }
+
+
+
+    }
+  } else {
+    bestHeuristic == 9999999999999;
+
+  }
+
+  processLevel(subBoard, superBoard, newMoves, Max/min, opPlayer, ++level);
+
+
+  return bestMove;
+}
+
 
 //Minimax with alpha beta pruning
 long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {

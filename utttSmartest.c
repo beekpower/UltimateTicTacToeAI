@@ -18,6 +18,7 @@
 #define SUPER_ONE 10
 #define SUB_TWO 1
 
+struct timeval t1;
 char subBoard[81];
 char superBoard[9];
 char AI;
@@ -392,6 +393,15 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
   char start, end;
   char player;
   long v;
+  struct timeval testTime;
+  double elapsedTime;
+
+  //Time ran out
+  gettimeofday(&testTime, NULL);
+  elapsedTime = (t2.tv_sec - t1.tv_sec);
+  if (elapsedTime >= 150) {
+    return heuristic(subBoard, superBoard, opPlayer);
+  }
 
   if (level == 0) {
     return heuristic(subBoard, superBoard, opPlayer);
@@ -429,6 +439,13 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
       if (isOpenSpot(subBoard, superBoard, i)) {
         char newSuperBoardSpot;
         long result;
+
+        //Time ran out
+        gettimeofday(&testTime, NULL);
+        elapsedTime = (t2.tv_sec - t1.tv_sec);
+        if (elapsedTime >= 150) {
+          return heuristic(subBoard, superBoard, opPlayer);
+        }
 
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
         result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, level - 1, alpha, beta);
@@ -580,7 +597,7 @@ void printBoard(char subBoard[]) {
 
 int main(void) {
   char inputMove, inputAI, gameOver;
-  struct timeval t1, t2;
+  struct timeval t2;
   double elapsedTime;
 
   while (1) {
