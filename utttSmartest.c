@@ -398,7 +398,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
 
   //Time ran out
   gettimeofday(&testTime, NULL);
-  elapsedTime = (t2.tv_sec - t1.tv_sec);
+  elapsedTime = (testTime.tv_sec - t1.tv_sec);
   if (elapsedTime >= 150) {
     return heuristic(subBoard, superBoard, opPlayer);
   }
@@ -442,7 +442,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
 
         //Time ran out
         gettimeofday(&testTime, NULL);
-        elapsedTime = (t2.tv_sec - t1.tv_sec);
+        elapsedTime = (testTime.tv_sec - t1.tv_sec);
         if (elapsedTime >= 150) {
           return heuristic(subBoard, superBoard, opPlayer);
         }
@@ -479,7 +479,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
 
         //Time ran out
         gettimeofday(&testTime, NULL);
-        elapsedTime = (t2.tv_sec - t1.tv_sec);
+        elapsedTime = (testTime.tv_sec - t1.tv_sec);
         if (elapsedTime >= 150) {
           return heuristic(subBoard, superBoard, opPlayer);
         }
