@@ -237,9 +237,17 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   for (char i = 0; i < SUPER_BOARD_SIZE; i++) {
     if (superBoard[i] == player) {
       //If it is player's spot
+      if (i == 4) {
+        //if its the center board that is won, add more points
+        total += SUPER_ONE;
+      }
       total += SUPER_ONE;
     } else if (superBoard[i] > 0) {
       //If it is opponent's spot
+      if (i == 4) {
+        //if its the center board that is won, subtract more points
+        total -= SUPER_ONE;
+      }
       total -= SUPER_ONE;
     }
   }
