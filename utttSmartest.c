@@ -444,7 +444,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
         gettimeofday(&testTime, NULL);
         elapsedTime = (testTime.tv_sec - t1.tv_sec);
         if (elapsedTime >= 150) {
-          return heuristic(subBoard, superBoard, opPlayer);
+          return v;
         }
 
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
@@ -481,7 +481,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
         gettimeofday(&testTime, NULL);
         elapsedTime = (testTime.tv_sec - t1.tv_sec);
         if (elapsedTime >= 150) {
-          return heuristic(subBoard, superBoard, opPlayer);
+          return v;
         }
 
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
