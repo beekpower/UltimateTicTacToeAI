@@ -607,20 +607,6 @@ int main(void) {
   struct timeval t2;
   double elapsedTime;
 
-subBoard[55] = O;
-subBoard[56] = O;
-subBoard[57] = X;
-subBoard[59] = X;
-subBoard[60] = X;
-
-subBoard[63] = X;
-subBoard[64] = X;
-subBoard[65] = X;
-subBoard[70] = O;
-
-printf("%d\n", boardWon(subBoard, 6));
-exit(0);
-
   while (1) {
     printf("\nWho will the AI play as? (X, O): ");
     scanf("%c", &inputAI);
