@@ -645,7 +645,8 @@ int main(void) {
             gettimeofday(&t2, NULL);
             elapsedTime = t2.tv_sec - tLast.tv_sec;
             printf("%f seconds elapsed for level %d\n", elapsedTime, i);
-            if (t2.tv_sec - t1.tv_sec <= 150) {
+            elapsedTime = t2.tv_sec - t1.tv_sec;
+            if (elapsedTime <= 150.0) {
               inputMove = levelMove;
             } else {
               printf("Failed to complete level %d, using level %d move", i, i-1);
