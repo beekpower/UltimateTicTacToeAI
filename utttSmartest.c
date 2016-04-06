@@ -63,7 +63,7 @@ char getSuperBoardSpot(char move) {
 //Remove a move from the board
 void undoMove(char subBoard[], char superBoard[], char move) {
   subBoard[move] = 0;
-  char superBoardSpot = getSuperBoardSpot(move);
+  char superBoardSpot = (move - (move % 9)) / 9;
   superBoard[superBoardSpot] = 0;
 }
 
@@ -113,7 +113,7 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
   subBoard[move] = player;
 
   //Update the super board spot if needed
-  char superBoardSpot = getSuperBoardSpot(move);
+  char superBoardSpot = (move - (move % 9)) / 9;
   char state = boardWon(subBoard, superBoardSpot);
   if (state > -1) {
     superBoard[superBoardSpot] = state;
@@ -130,7 +130,7 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
 }
 
 char isOpenSpot(char subBoard[], char superBoard[], char move) {
-  char superBoardSpot = getSuperBoardSpot(move);
+  char superBoardSpot = (move - (move % 9)) / 9;
   if (superBoard[superBoardSpot] > 0) {
     return 0;
   }
