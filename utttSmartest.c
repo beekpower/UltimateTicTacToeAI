@@ -479,12 +479,12 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
         char newSuperBoardSpot;
         long result;
 
-        //Time ran out
-        // gettimeofday(&testTime, NULL);
-        // elapsedTime = (testTime.tv_sec - t1.tv_sec);
-        // if (elapsedTime >= MAX_TURN_TIME) {
-        //   return v;
-        // }
+        Time ran out
+        gettimeofday(&testTime, NULL);
+        elapsedTime = (testTime.tv_sec - t1.tv_sec);
+        if (elapsedTime >= MAX_TURN_TIME) {
+          return v;
+        }
 
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
         result = minimax(subBoard, superBoard, newSuperBoardSpot, MAXIMIZE, opPlayer, level - 1, alpha, beta);
