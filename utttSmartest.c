@@ -638,7 +638,7 @@ int main(void) {
         if (moves == 0) {
           inputMove = 36;
         } else {
-          for (char i = 4; i < 81; i++) {
+          for (char i = 4; i < 16; i++) {
             char levelMove;
             printf("Calculating to level %d...\n", i);
             levelMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, i);
