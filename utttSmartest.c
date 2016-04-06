@@ -136,10 +136,11 @@ char boardWon(char subBoard[], char superBoardSpot) {
 }
 
 //Remove a move from the board
-void undoMove(char subBoard[], char superBoard[], char move) {
+void undoMove(char subBoard[], char superBoard[], char move, char cachedSuperBoardValue) {
   subBoard[move] = 0;
   char superBoardSpot = (move - (move % 9)) / 9;
-  superBoard[superBoardSpot] = boardWon(subBoard, superBoardSpot);
+  superBoard[superBoardSpot] = cachedSuperBoardValue;
+  //superBoard[superBoardSpot] = boardWon(subBoard, superBoardSpot);
 }
 
 
@@ -433,6 +434,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
   long v;
   struct timeval testTime;
   double elapsedTime;
+  char lastSuperBoardState;
 
   //Time ran out
   gettimeofday(&testTime, NULL);
@@ -484,10 +486,10 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
         if (elapsedTime >= MAX_TURN_TIME) {
           return v;
         }
-
+        lastSuperBoardState = superBoard[(i - (i % 9)) / 9];
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
         result = minimax(subBoard, superBoard, newSuperBoardSpot, MINIMIZE, opPlayer, level - 1, alpha, beta);
-        undoMove(subBoard, superBoard, i);
+        undoMove(subBoard, superBoard, i, lastSuperBoardState);
 
         if (result > v) {
           v = result;
@@ -522,9 +524,10 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
           return v;
         }
 
+        lastSuperBoardState = superBoard[(i - (i % 9)) / 9];
         newSuperBoardSpot = doMove(subBoard, superBoard, player, i);
         result = minimax(subBoard, superBoard, newSuperBoardSpot, MAXIMIZE, opPlayer, level - 1, alpha, beta);
-        undoMove(subBoard, superBoard, i);
+        undoMove(subBoard, superBoard, i, lastSuperBoardState);
 
         if (result < v) {
           v = result;
@@ -548,7 +551,7 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
 void threadStarter(char thread) {
   char newSuperBoardSpot = doMove(tData[thread].subBoard, tData[thread].superBoard, tData[thread].opPlayer, tData[thread].move);
   long result = minimax(tData[thread].subBoard, tData[thread].superBoard, newSuperBoardSpot, MINIMIZE, tData[thread].opPlayer, tData[thread].levels, -9999999999, 9999999999);
-  undoMove(tData[thread].subBoard, tData[thread].superBoard, tData[thread].move);
+  //undoMove(tData[thread].subBoard, tData[thread].superBoard, tData[thread].move);
   trData[thread].score = result;
   trData[thread].move = tData[thread].move;
 }
