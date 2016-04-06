@@ -55,9 +55,7 @@ char *copyBoard(char board[], char size) {
 
 //Get the region of the super board the a move is in
 char getSuperBoardSpot(char move) {
-  char numberOfSpotsIntoSubBoard = move % 9;
-  char firstSpotOfSubBoard =  move - numberOfSpotsIntoSubBoard;
-  return firstSpotOfSubBoard / 9;
+  return (move - (move % 9)) / 9;
 }
 
 //Remove a move from the board
