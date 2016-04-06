@@ -184,7 +184,7 @@ long subHeuristic(char subBoard[], char board, char player) {
   char seed = board * 9;
   long total = 0;
   //Diagonal left
-  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed+4]) {
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed+4] && subBoard[seed+8] == 0) {
     if (subBoard[seed] == player) {
       total += SUB_TWO;
     } else {
@@ -192,7 +192,7 @@ long subHeuristic(char subBoard[], char board, char player) {
     }
   }
 
-  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed+8]) {
+  if (subBoard[seed] > 0 && subBoard[seed] == subBoard[seed+8] && subBoard[seed+4] == 0) {
     if (subBoard[seed] == player) {
       total += SUB_TWO;
     } else {
@@ -200,7 +200,7 @@ long subHeuristic(char subBoard[], char board, char player) {
     }
   }
 
-  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+8]) {
+  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+8] && subBoard[seed] == 0) {
     if (subBoard[seed+4] == player) {
       total += SUB_TWO;
     } else {
@@ -209,7 +209,7 @@ long subHeuristic(char subBoard[], char board, char player) {
   }
 
   //Diagonal right
-  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+4]) {
+  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+4] && subBoard[seed+6] == 0) {
     if (subBoard[seed+2] == player) {
       total += SUB_TWO;
     } else {
@@ -217,7 +217,7 @@ long subHeuristic(char subBoard[], char board, char player) {
     }
   }
 
-  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+6]) {
+  if (subBoard[seed+2] > 0 && subBoard[seed+2] == subBoard[seed+6] && subBoard[seed+4] == 0) {
     if (subBoard[seed+2] == player) {
       total += SUB_TWO;
     } else {
@@ -225,7 +225,7 @@ long subHeuristic(char subBoard[], char board, char player) {
     }
   }
 
-  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+6]) {
+  if (subBoard[seed+4] > 0 && subBoard[seed+4] == subBoard[seed+6] && subBoard[seed+2] == 0) {
     if (subBoard[seed+4] == player) {
       total += SUB_TWO;
     } else {
@@ -235,7 +235,7 @@ long subHeuristic(char subBoard[], char board, char player) {
 
   //Rows
   for (char i = seed; i < seed + 9; i += 3) {
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+1]) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+1] && subBoard[i+2] == 0) {
       if (subBoard[i] == player) {
         total += SUB_TWO;
       } else {
@@ -243,7 +243,7 @@ long subHeuristic(char subBoard[], char board, char player) {
       }
     }
 
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+2]) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+2]  && subBoard[i+1] == 0) {
       if (subBoard[i] == player) {
         total += SUB_TWO;
       } else {
@@ -251,7 +251,7 @@ long subHeuristic(char subBoard[], char board, char player) {
       }
     }
 
-    if (subBoard[i+1] > 0 && subBoard[i+1] == subBoard[i+2]) {
+    if (subBoard[i+1] > 0 && subBoard[i+1] == subBoard[i+2] && subBoard[i] == 0) {
       if (subBoard[i+1] == player) {
         total += SUB_TWO;
       } else {
@@ -262,7 +262,7 @@ long subHeuristic(char subBoard[], char board, char player) {
 
   //Columns
   for (char i = seed; i < seed + 3; i += 1) {
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+3]) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+3] && subBoard[i+6] == 0) {
       if (subBoard[i] == player) {
         total += SUB_TWO;
       } else {
@@ -270,7 +270,7 @@ long subHeuristic(char subBoard[], char board, char player) {
       }
     }
 
-    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+6]) {
+    if (subBoard[i] > 0 && subBoard[i] == subBoard[i+6] && subBoard[i+3] == 0) {
       if (subBoard[i] == player) {
         total += SUB_TWO;
       } else {
@@ -278,7 +278,7 @@ long subHeuristic(char subBoard[], char board, char player) {
       }
     }
 
-    if (subBoard[i+3] > 0 && subBoard[i+3] == subBoard[i+6]) {
+    if (subBoard[i+3] > 0 && subBoard[i+3] == subBoard[i+6] && subBoard[i] == 0) {
       if (subBoard[i+3] == player) {
         total += SUB_TWO;
       } else {
@@ -315,7 +315,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   }
 
   //Diagonal left
-  if (superBoard[0] > 0 && superBoard[0] == superBoard[4]) {
+  if (superBoard[0] > 0 && superBoard[0] == superBoard[4] && superBoard[8] == -1) {
     if (superBoard[0] == player) {
       total += SUPER_TWO;
     } else {
@@ -323,7 +323,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
     }
   }
 
-  if (superBoard[0] > 0 && superBoard[0] == superBoard[8]) {
+  if (superBoard[0] > 0 && superBoard[0] == superBoard[8] && superBoard[4] == -1) {
     if (superBoard[0] == player) {
       total += SUPER_TWO;
     } else {
@@ -331,7 +331,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
     }
   }
 
-  if (superBoard[4] > 0 && superBoard[4] == superBoard[8]) {
+  if (superBoard[4] > 0 && superBoard[4] == superBoard[8] && superBoard[0] == -1) {
     if (superBoard[4] == player) {
       total += SUPER_TWO;
     } else {
@@ -340,7 +340,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
   }
 
   //Diagonal right
-  if (superBoard[2] > 0 && superBoard[2] == superBoard[4]) {
+  if (superBoard[2] > 0 && superBoard[2] == superBoard[4] && superBoard[6] == -1) {
     if (superBoard[2] == player) {
       total += SUPER_TWO;
     } else {
@@ -348,7 +348,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
     }
   }
 
-  if (superBoard[2] > 0 && superBoard[2] == superBoard[6]) {
+  if (superBoard[2] > 0 && superBoard[2] == superBoard[6] && superBoard[4] == -1) {
     if (superBoard[2] == player) {
       total += SUPER_TWO;
     } else {
@@ -356,7 +356,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
     }
   }
 
-  if (superBoard[4] > 0 && superBoard[4] == superBoard[6]) {
+  if (superBoard[4] > 0 && superBoard[4] == superBoard[6] && superBoard[2] == -1) {
     if (superBoard[4] == player) {
       total += SUPER_TWO;
     } else {
@@ -366,54 +366,54 @@ long heuristic(char subBoard[], char superBoard[], char player) {
 
   //Rows
   for (char i = 0; i < 9; i += 3) {
-    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+1]) {
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+1] && superBoard[i+2] == -1) {
       if (superBoard[i] == player) {
-        total += SUB_TWO;
+        total += SUPER_TWO;
       } else {
-        total -= SUB_TWO;
+        total -= SUPER_TWO;
       }
     }
 
-    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+2]) {
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+2] && superBoard[i+1] == -1) {
       if (superBoard[i] == player) {
-        total += SUB_TWO;
+        total += SUPER_TWO;
       } else {
-        total -= SUB_TWO;
+        total -= SUPER_TWO;
       }
     }
 
-    if (superBoard[i+1] > 0 && superBoard[i+1] == superBoard[i+2]) {
+    if (superBoard[i+1] > 0 && superBoard[i+1] == superBoard[i+2] && superBoard[i] == -1) {
       if (superBoard[i+1] == player) {
-        total += SUB_TWO;
+        total += SUPER_TWO;
       } else {
-        total -= SUB_TWO;
+        total -= SUPER_TWO;
       }
     }
   }
 
   //Columns
   for (char i = 0; i < 3; i += 1) {
-    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+3]) {
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+3] && superBoard[i+6] == -1) {
       if (superBoard[i] == player) {
-        total += SUB_TWO;
+        total += SUPER_TWO;
       } else {
         total -= SUB_TWO;
       }
     }
 
-    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+6]) {
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i+6] && superBoard[i+3] == -1) {
       if (superBoard[i] == player) {
-        total += SUB_TWO;
+        total += SUPER_TWO;
       } else {
-        total -= SUB_TWO;
+        total -= SUPER_TWO;
       }
     }
 
-    if (superBoard[i+3] > 0 && superBoard[i+3] == superBoard[i+6]) {
+    if (superBoard[i+3] > 0 && superBoard[i+3] == superBoard[i+6] && superBoard[i] == -1) {
       if (superBoard[i+3] == player) {
-        total += SUB_TWO;
+        total += SUPER_TWO;
       } else {
-        total -= SUB_TWO;
+        total -= SUPER_TWO;
       }
     }
   }
