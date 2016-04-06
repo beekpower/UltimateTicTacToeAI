@@ -636,7 +636,7 @@ int main(void) {
         printf("\nAI calculating best move in (region %d)...\n", allowedSuperSpot);
         //AI always chooses the first spot as its move, so just set it.
         if (moves == 0) {
-          inputMove = 36;
+          inputMove = 40;
         } else {
           for (char i = 4; i < 16; i++) {
             char levelMove;
