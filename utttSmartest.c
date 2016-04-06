@@ -292,6 +292,12 @@ long subHeuristic(char subBoard[], char board, char player) {
 long heuristic(char subBoard[], char superBoard[], char player) {
   long total = 0;
 
+  if (superBoardWon(superBoard) == player) {
+    total += SUPER_THREE;
+  } else if (superBoardWon(superBoard) > 0) {
+    total -= SUPER_THREE;
+  }
+
   //Check the super board
   //individual spots
   for (char i = 0; i < SUPER_BOARD_SIZE; i++) {
@@ -444,12 +450,8 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
     return heuristic(subBoard, superBoard, opPlayer);
   }
 
-  if (gameOver == 0) {
-    return 0;
-  } else if (gameOver == opPlayer) {
-    return SUPER_THREE;
-  } else if (gameOver > -1) {
-    return -SUPER_THREE;
+  if (gameOver > -1) {
+    return heuristic(subBoard, superBoard, opPlayer);
   }
 
   //We need to go deeper
