@@ -563,6 +563,7 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
   char move;
   char start, end;
   char j = 0;
+  char lastSuperBoardState;
 
   if (superBoardSpot == -1) {
     //search all spots on the board
@@ -577,6 +578,14 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
   //search within the superboard
   for (char i = start; i < end; i++) {
     if (isOpenSpot(subBoard, superBoard, i)) {
+      //Take the winning move is available
+      lastSuperBoardState = superBoard[(i - (i % 9)) / 9];
+      char newSuperBoardSpot = doMove(subBoard, superBoard, opPlayer, i);
+      if (superBoardWon(superBoard) == opPlayer) {
+        return i;
+      }
+      undoMove(subBoard, superBoard, i, lastSuperBoardState);
+
       ThreadData data;
       data.subBoard = copyBoard(subBoard, SUB_BOARD_SIZE);
       data.superBoard = copyBoard(superBoard, SUPER_BOARD_SIZE);
