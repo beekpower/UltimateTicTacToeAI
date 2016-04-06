@@ -397,11 +397,11 @@ long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal,
   double elapsedTime;
 
   //Time ran out
-  // gettimeofday(&testTime, NULL);
-  // elapsedTime = (testTime.tv_sec - t1.tv_sec);
-  // if (elapsedTime >= MAX_TURN_TIME) {
-  //   return heuristic(subBoard, superBoard, opPlayer);
-  // }
+  gettimeofday(&testTime, NULL);
+  elapsedTime = (testTime.tv_sec - t1.tv_sec);
+  if (elapsedTime >= MAX_TURN_TIME) {
+    return heuristic(subBoard, superBoard, opPlayer);
+  }
 
   if (level == 0) {
     return heuristic(subBoard, superBoard, opPlayer);
