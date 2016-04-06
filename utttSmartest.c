@@ -62,7 +62,7 @@ char getSuperBoardSpot(char move) {
 void undoMove(char subBoard[], char superBoard[], char move) {
   subBoard[move] = 0;
   char superBoardSpot = (move - (move % 9)) / 9;
-  superBoard[superBoardSpot] = 0;
+  superBoard[superBoardSpot] = -1;
 }
 
 char superBoardWon(char superBoard[]) {
