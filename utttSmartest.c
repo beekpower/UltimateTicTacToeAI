@@ -65,6 +65,43 @@ void undoMove(char subBoard[], char superBoard[], char move) {
   superBoard[superBoardSpot] = 0;
 }
 
+char superBoardWon(char superBoard[]) {
+  //Diagonal left
+  if (superBoard[0] > 0 && superBoard[0] == superBoard[4] && superBoard[0] == superBoard[8]) {
+    return superBoard[0];
+  }
+
+  //Diagonal right
+  if (superBoard[2] > 0 && superBoard[2] == superBoard[4] && superBoard[2] == superBoard[6]) {
+    return superBoard[2];
+  }
+
+  //Rows
+  for (char i = 0; i < 9; i += 3) {
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i + 1] && superBoard[i] == superBoard[i + 2]) {
+      return superBoard[i];
+    }
+  }
+
+  //Columns
+  for (char i = 0; i < 3; i += 1) {
+    if (superBoard[i] > 0 && superBoard[i] == superBoard[i + 3] && superBoard[i] == superBoard[i + 6]) {
+      return superBoard[i];
+    }
+  }
+
+  //Test for any empty spots, to detemine of its a tie
+  for (char i = 0; i < 9; i += 1) {
+    if (superBoard[i] == -1) {
+      //Not a tie
+      return -1;
+    }
+  }
+
+  //Its a tie
+  return 0;
+}
+
 //Call with superBoardSpot = 0 if testing superBoard
 char boardWon(char subBoard[], char superBoardSpot) {
   char seed = superBoardSpot * 9;
@@ -389,7 +426,7 @@ long heuristic(char subBoard[], char superBoard[], char player) {
 
 //Minimax with alpha beta pruning
 long minimax(char subBoard[], char superBoard[], char superBoardSpot, char goal, char opPlayer, char level, long alpha, long beta) {
-  char gameOver = boardWon(superBoard, 0);
+  char gameOver = superBoardWon(superBoard);
   char start, end;
   char player;
   long v;
@@ -609,6 +646,11 @@ int main(void) {
   struct timeval t2, tLast;
   double elapsedTime;
 
+  //initialize superBoard
+  for (char i = 0; i < SUPER_BOARD_SIZE; i++) {
+    superBoard[i] = -1;
+  }
+
   while (1) {
     printf("\nWho will the AI play as? (X, O): ");
     scanf("%c", &inputAI);
@@ -684,7 +726,7 @@ int main(void) {
     }
 
     //Check if the game is over
-    gameOver = boardWon(superBoard, 0);
+    gameOver = superBoardWon(superBoard);
     if (gameOver == X) {
       printBoard(subBoard);
       printf("\nGame over, X wins.\n");
