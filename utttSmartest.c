@@ -166,7 +166,7 @@ char doMove(char subBoard[], char superBoard[], char player, char move) {
 
 char isOpenSpot(char subBoard[], char superBoard[], char move) {
   char superBoardSpot = (move - (move % 9)) / 9;
-  if (superBoard[superBoardSpot] > 0) {
+  if (superBoard[superBoardSpot] > -1) {
     return 0;
   }
 
