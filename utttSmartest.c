@@ -576,9 +576,10 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
       //Take the winning move is available
       char newSuperBoardSpot = doMove(subBoard, superBoard, opPlayer, i);
       if (superBoardWon(superBoard) == opPlayer) {
+        undoMove(subBoard, superBoard, i);
         return i;
       }
-      undoMove(subBoard, superBoard, i);
+
 
       ThreadData data;
       data.subBoard = copyBoard(subBoard, SUB_BOARD_SIZE);
@@ -689,7 +690,7 @@ int main(void) {
         if (moves == 0) {
           inputMove = 40;
         } else {
-          for (char i = 4; i < 16; i++) {
+          for (char i = 4; i < 8; i++) {
             char levelMove;
             printf("Calculating to level %d...\n", i);
             levelMove = getBestMove(subBoard, superBoard, allowedSuperSpot, currentPlayer, i);
