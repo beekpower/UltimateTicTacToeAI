@@ -579,6 +579,7 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
         undoMove(subBoard, superBoard, i);
         return i;
       }
+      undoMove(subBoard, superBoard, i);
 
 
       ThreadData data;
