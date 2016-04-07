@@ -582,9 +582,10 @@ char getBestMove(char subBoard[], char superBoard[], char superBoardSpot, char o
       lastSuperBoardState = superBoard[(i - (i % 9)) / 9];
       char newSuperBoardSpot = doMove(subBoard, superBoard, opPlayer, i);
       if (superBoardWon(superBoard) == opPlayer) {
+        undoMove(subBoard, superBoard, i, lastSuperBoardState);
         return i;
       }
-      undoMove(subBoard, superBoard, i, lastSuperBoardState);
+
 
       ThreadData data;
       data.subBoard = copyBoard(subBoard, SUB_BOARD_SIZE);
