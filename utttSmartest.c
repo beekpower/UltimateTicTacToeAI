@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #include "thpool.h"
 
-#define MAX_TURN_TIME 154
+#define MAX_TURN_TIME 150
 #define THREADS 81
 #define SUB_BOARD_SIZE 81
 #define SUPER_BOARD_SIZE 9

@@ -1,0 +1,505 @@
+[33mcommit 7a55a05c5694e5b831d5e1f1ce123f97090c9832[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 20:09:10 2016 -0400
+
+    ttt
+
+[33mcommit 8418871d3868e8451d01189bc5fa7f44ca570469[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 20:08:36 2016 -0400
+
+    gett
+
+[33mcommit c7d266bc79f1ef274ab91c1220017eb33bcdbf41[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 19:57:55 2016 -0400
+
+    turn time
+
+[33mcommit f906b05b0e50fb11f0dd7383ec2128e18cb0fda3[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 19:46:35 2016 -0400
+
+    threads
+
+[33mcommit b5ee52537b862d2bccf4e2c894ea3a11a5c7ff6c[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 19:39:24 2016 -0400
+
+    readme
+
+[33mcommit 4d70909d9287bd156c024932294839855ae92cc8[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 19:16:52 2016 -0400
+
+    undo more for to if's
+
+[33mcommit 0357686d17270faf0f60d8dc9e8148589f6522a0[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 19:16:03 2016 -0400
+
+    undo for to  if's in boardWon
+
+[33mcommit 97e30fdcc50ab58d9b9b552dc95f339d21435401[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 19:03:28 2016 -0400
+
+    seed fix
+
+[33mcommit 00023c41547e054d79bac36db0eb0a5418ff36b5[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 19:02:49 2016 -0400
+
+    seed fix
+
+[33mcommit d5963be9fda656fb89a21ab1e7de72554f58647c[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 19:01:35 2016 -0400
+
+    test faster boardWon
+
+[33mcommit ec213443efc5766eb2f7aab66eef5aeff790606c[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 17:18:50 2016 -0400
+
+    level fail fix
+
+[33mcommit 6eadfcb5c7860dab03e479aaa1155915ae88ca01[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 15:07:39 2016 -0400
+
+    elapsed time
+
+[33mcommit b8725af278114b37f6280146ef4eb51b88ca6fc0[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 14:59:53 2016 -0400
+
+    remove smart2
+
+[33mcommit c02e19d840877431f3ba2e264be071be1606d123[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 14:55:34 2016 -0400
+
+    git ignore
+
+[33mcommit 76663a5642c97c8e5713810252982da2d1104012[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 14:53:26 2016 -0400
+
+    syntax error
+
+[33mcommit 605fc04d4595c6dabae1c29260b7fdac3327919b[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 14:52:51 2016 -0400
+
+    level failure message
+
+[33mcommit 30092cdbffdb299bae75f863f12ade039e677e71[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 14:47:30 2016 -0400
+
+    min level of 4
+
+[33mcommit 03456208c8e039b9674d6270f904f6772be75a3b[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 14:44:17 2016 -0400
+
+    calculate every level you possibly can
+
+[33mcommit 09e57833861ec0dcf3237ec1ad8b8e75b229fbd3[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 13:56:09 2016 -0400
+
+    level output
+
+[33mcommit 2f85bf9a8710dd8811dbac4ed6504ffbd99944d2[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 13:51:43 2016 -0400
+
+    dual layer getbestmove
+
+[33mcommit 7833b4dc015b383c2a7e8038550f144d4976ac5d[m
+Author: fastnick94 <fastnick94@gmail.com>
+Date:   Tue Apr 5 03:23:27 2016 -0400
+
+    boardWon bug fix superboard check
+
+[33mcommit 0c018dab9da54b024fefc9dd25a325e9ba37576b[m
+Author: fastnick94 <fastnick94@gmail.com>
+Date:   Tue Apr 5 02:56:38 2016 -0400
+
+    remove debug code
+
+[33mcommit 629d41b7929d9b2b7983caa6aca51a523e7f164b[m
+Author: fastnick94 <fastnick94@gmail.com>
+Date:   Tue Apr 5 02:54:57 2016 -0400
+
+    bug fix loop < 12
+
+[33mcommit f1ea0bd536d208c758424c10f6d84367aa5b8a41[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 02:02:01 2016 -0400
+
+    test
+
+[33mcommit c0806028ea8f484b1ae11a28c40ee814790ff454[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 01:03:05 2016 -0400
+
+    bug fix 2
+
+[33mcommit 305aa0327763cd1d1cc62308183792f822080fa0[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 01:01:48 2016 -0400
+
+    bug fix
+
+[33mcommit 918aab31ff8fd33b42e61586954613226a7073f0[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 00:20:20 2016 -0400
+
+    return v not heuristic when running out of time
+
+[33mcommit ad6c50a5c6fb3a615c47daac584520ee445cea44[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Apr 5 00:00:00 2016 -0400
+
+    more timer fix
+
+[33mcommit f7e3eb4a1a2a942eeb73188ea4d578b75a13610d[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 23:58:05 2016 -0400
+
+    fix time ran out
+
+[33mcommit 667b726cdc0d0e13bcb3fe7094b6906cbf05d279[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 23:56:14 2016 -0400
+
+    run out of time
+
+[33mcommit 5c3d59e90eef1721439cdb5798d94a93b9adcec0[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 21:03:31 2016 -0400
+
+    smartest 2
+
+[33mcommit e288604c4ae017b340b30786d00b392d1fe9d04f[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 21:03:01 2016 -0400
+
+    play center board default
+
+[33mcommit 4fada950276835b511dafbd2a744a7334992c42f[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 20:59:12 2016 -0400
+
+    more points for winning center board
+
+[33mcommit 3c7be90f50645979503df5b4a0e249603251374d[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 19:52:32 2016 -0400
+
+    5 levels
+
+[33mcommit 6db07f96111c60a66ef3e59690b559b65d9d6baa[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 19:44:56 2016 -0400
+
+    6 levels
+
+[33mcommit 259df29c0be38649c494f55793a8fdfc0350ff72[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 19:26:53 2016 -0400
+
+    7 levels
+
+[33mcommit 3e266df52f3e09a50628166b5ba02b9694527fae[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 19:25:19 2016 -0400
+
+    elapse AI move time
+
+[33mcommit a3898520840617d911356298a856b1e52d96b163[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 18:50:21 2016 -0400
+
+    first move when X mod
+
+[33mcommit c92ac6614b14e62ee24c32b23f20703bbbf48211[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Apr 4 18:38:46 2016 -0400
+
+    doc
+
+[33mcommit 61a4e2897f54db8eea0203d8a8ed81030772fc0d[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 16:27:10 2016 -0400
+
+    comments
+
+[33mcommit 0953748818d246b82a6ae5ed210d3bf5b2e9b439[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 16:23:59 2016 -0400
+
+    smartest AI level 8
+
+[33mcommit 4b4d78136e1e595d2bb99cb08ea6356217379e50[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 16:22:06 2016 -0400
+
+    l
+
+[33mcommit 089ca09e191fd804410b8e6d4cc5f3f3f896f449[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 16:21:58 2016 -0400
+
+    dumber and smarter look ahead
+
+[33mcommit 8c66d1acd8c214059236eaf8b017c9c7a3c965b0[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 16:18:40 2016 -0400
+
+    make files for different AI
+
+[33mcommit 44773d2d96b075fe6faa417cbc7cb4f06e4680c4[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 16:13:26 2016 -0400
+
+    fix
+
+[33mcommit 9c5a4176298256e165313d559636df83aa9a60c8[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 16:13:01 2016 -0400
+
+    working threaded tic tac toe
+
+[33mcommit d36de7f69f9177de204fea6232b21d4d59781260[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 15:48:09 2016 -0400
+
+    threaded bug fixes
+
+[33mcommit e9694103bef0b6bb858a1a658dc79c22a6d58951[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sun Apr 3 15:44:15 2016 -0400
+
+    bug fixes, the ai fucking works properly now
+
+[33mcommit c3d2c379dd6a39580cc8678199d67da33e05580d[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Apr 2 04:03:43 2016 -0400
+
+    7 levels
+
+[33mcommit aad57f3390d9e33ca6cce98c0882037a3b634191[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Apr 2 03:58:30 2016 -0400
+
+    threading working
+
+[33mcommit e75cd5c8950e6852a8da1e6c1eb919be7878f35f[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Apr 2 03:51:21 2016 -0400
+
+    thread progress
+
+[33mcommit 5379c87d73efcf14bcfca0a09a34c4a807213e9e[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Apr 2 03:01:12 2016 -0400
+
+    begin utt thread
+
+[33mcommit f114c35e469ad79298a98913df43984daaed96b4[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Apr 2 03:00:34 2016 -0400
+
+    remove uneeded if statements
+
+[33mcommit 24d3bc2a82c0662afc1894dab7a1f6c42904ed2f[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Apr 2 02:49:59 2016 -0400
+
+    alpha beta pruning
+
+[33mcommit c87c26e95455c73e66916c02e0451a3fe12254f1[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Apr 2 02:25:16 2016 -0400
+
+    bug fixes
+
+[33mcommit 0f2bb3afd99ab10c2adfdb2687bf9bb4a5987904[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Fri Apr 1 23:28:15 2016 -0400
+
+    working AI
+
+[33mcommit e5cfb0dbeed7451612848242366bce53919e00dc[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Fri Apr 1 22:48:35 2016 -0400
+
+    heuristic
+
+[33mcommit 0263280859ba868596979c4f321d5da671dc98e4[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 14:52:03 2016 -0400
+
+    proper board printing
+
+[33mcommit d9558b49377f416b76cb710fff3cb70e786760e7[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 04:41:25 2016 -0400
+
+    better board print
+
+[33mcommit 0d33505d58a80a4ccaab42ca31aae1291730121d[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 04:06:43 2016 -0400
+
+    minimax work
+
+[33mcommit f8e73372211b805fae68663ae6e67e8c23526b2d[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 03:34:53 2016 -0400
+
+    finish boardWon function
+
+[33mcommit 4a61bd76cd5b12bed7fec01f3eca9e2ca5446600[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 03:31:31 2016 -0400
+
+    bug fix win test
+
+[33mcommit 94e0319604dafedbff78d7e84548960e5735eb74[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 03:27:38 2016 -0400
+
+    superboardwon
+
+[33mcommit 69b6374a639c2dce09fcd739e7bc6c92ff12ea6a[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 02:43:08 2016 -0400
+
+    let user select which player is the AI
+
+[33mcommit 5eb4d846b7aeec2d0774ba158b426a9315d6cadf[m
+Merge: ee84632 caf956b
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 02:23:11 2016 -0400
+
+    Merge branch 'master' of https://github.com/fastnick94/UltimateTicTacToeAI
+
+[33mcommit ee84632a0fa9f44bb4e04079a40df3eb1976b826[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 02:22:57 2016 -0400
+
+    begin minimax
+
+[33mcommit caf956bbf2ff31728b71def44ff0847c7fd78f64[m
+Merge: a2d4d32 c7cc67d
+Author: Tyler Oliver <tyler8oliver@gmail.com>
+Date:   Wed Mar 30 02:03:16 2016 -0400
+
+    Merge branch 'master' of https://github.com/fastnick94/UltimateTicTacToeAI
+
+[33mcommit a2d4d32316a2d119438fdf5ea808de3abb06352c[m
+Author: Tyler Oliver <tyler8oliver@gmail.com>
+Date:   Wed Mar 30 02:02:57 2016 -0400
+
+    started heurstic evaluation
+
+[33mcommit c7cc67d5286e4801750123e43c0ad46eecc96a88[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 01:57:40 2016 -0400
+
+    change board names
+
+[33mcommit d37ad79c760edc74cb8a077aa43fae2dfe9f68a0[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 01:49:03 2016 -0400
+
+    do move return subboard
+
+[33mcommit d645df4e6f9dbf835e8e0da7e3fb7ece099581c0[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Wed Mar 30 01:31:22 2016 -0400
+
+    new uttt board
+
+[33mcommit 4d3e153ca96ca0c93733661e3145612d3a7196a5[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Mar 29 00:51:36 2016 -0400
+
+    better timer
+
+[33mcommit 3a6b88aac8cf5ca935c3703829be122200ebe49c[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Tue Mar 29 00:26:17 2016 -0400
+
+    threaded recursion
+
+[33mcommit 4166d4960454dfb3cf48de867a0f1dc468ffccae[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Mar 28 23:27:38 2016 -0400
+
+    uttt
+
+[33mcommit 49e7a4212f83507a0332cd82ca509e9b3e7cee50[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Mar 28 22:45:52 2016 -0400
+
+    change ttt name
+
+[33mcommit dfb5859703c6000bdddeae8b9f623b762b91698c[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Mar 28 22:43:41 2016 -0400
+
+    bug fix
+
+[33mcommit 7b590c674a1696fbcbdef60735060b29aec86bc9[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Mar 28 21:27:04 2016 -0400
+
+    AI play automatically
+
+[33mcommit 6f586ce2ef60ceab8dac509fa6be09eabd8bd441[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Mon Mar 28 21:09:35 2016 -0400
+
+    AI
+
+[33mcommit 1a9f239e4fadab404f65245266b56fe18e42dd10[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Mar 26 04:39:46 2016 -0400
+
+    work on turn evaluation
+
+[33mcommit 3f08ec92159c805f3ca4d17102980d3f67e138a2[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Mar 26 04:27:19 2016 -0400
+
+    test game over
+
+[33mcommit 338067225c5116b7984a76323e0ee6769cca30cb[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Mar 26 04:11:32 2016 -0400
+
+    bug fixes
+
+[33mcommit f1a722f4ae25930df77d3558413be2eff079c9dc[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Sat Mar 26 03:51:01 2016 -0400
+
+    tic tac toe stuff
+
+[33mcommit e3c6a77365624cf2057fa52be2dc69403a1b3765[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Fri Mar 25 16:37:03 2016 -0400
+
+    Multithreaded docs
+
+[33mcommit 62c6d96a4e4e80ed9837c5ac53d02fc190b62bbf[m
+Author: Nicholas Van Beek <fastnick94@gmail.com>
+Date:   Fri Mar 25 16:30:47 2016 -0400
+
+    add docs
